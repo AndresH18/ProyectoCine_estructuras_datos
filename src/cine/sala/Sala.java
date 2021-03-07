@@ -8,6 +8,9 @@ import exceptions.InvalidArgumentE;
 
 import java.util.Arrays;
 
+/**
+ *
+ */
 public class Sala {
 
     private final Asiento[][] asientos;
