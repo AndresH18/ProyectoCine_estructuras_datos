@@ -2,8 +2,8 @@ package cine.sala.asiento;
 
 public enum TipoAsiento {
 
-    PREFERENCIA(0),
     GENERAL(0),
+    PREFERENCIAl(0),
     PLATINUM(0),
     GOLD(0),
     DISCAPACITADOS(0);
