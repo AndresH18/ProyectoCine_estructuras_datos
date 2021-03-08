@@ -1,7 +1,21 @@
 package cine.sala.asiento;
 
 public class Asiento {
+
+	EstadoAsiento estado;
+	TipoAsiento tipoAsiento;
 	
-	int a=0;
+	public void setEstado(EstadoAsiento estado) {
+		this.estado=estado;
+	}
+	public void getEstado() {
+		return estado;
+	}
+	public void getTipoAsiento() {
+		return tipoAsiento;
+	}
+	
+	
+	
 	
 }
