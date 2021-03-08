@@ -14,8 +14,4 @@ public class Asiento {
 	public void getTipoAsiento() {
 		return tipoAsiento;
 	}
-	
-	
-	
-	
 }
