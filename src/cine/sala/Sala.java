@@ -7,6 +7,7 @@ import cine.sala.asiento.TipoAsiento;
 import exceptions.InvalidArgumentE;
 
 import java.util.Arrays;
+import java.util.Iterator;
 
 public class Sala {
 
@@ -77,16 +78,25 @@ public class Sala {
 //        final int gold = (int) Math.round(filas);
 
         for (int i = 0; i < asientos.length; i++) {
+        	TipoAsiento tiAsiento;
             if (i < general) {
-                Arrays.fill(asientos[i], Asiento.crearAsientoDisponible(TipoAsiento.GENERAL));
+//                Arrays.fill(asientos[i], Asiento.crearAsientoDisponible(TipoAsiento.GENERAL));
+            	tiAsiento = TipoAsiento.GENERAL;
             } else if (general <= i && i < preferencial) {
                 // i < preferencial
-                Arrays.fill(asientos[i], Asiento.crearAsientoDisponible(TipoAsiento.PREFERENCIAl));
+//                Arrays.fill(asientos[i], Asiento.crearAsientoDisponible(TipoAsiento.PREFERENCIAl));
+            	tiAsiento = TipoAsiento.PREFERENCIAl;
             } else if (preferencial <= i && i < platinum) {
                 // i < platinum
-                Arrays.fill(asientos[i], Asiento.crearAsientoDisponible(TipoAsiento.PLATINUM));
+//                Arrays.fill(asientos[i], Asiento.crearAsientoDisponible(TipoAsiento.PLATINUM));
+            	tiAsiento = TipoAsiento.PLATINUM;
             } else {
-                Arrays.fill(asientos[i], Asiento.crearAsientoDisponible(TipoAsiento.GOLD));
+//                Arrays.fill(asientos[i], Asiento.crearAsientoDisponible(TipoAsiento.GOLD));
+            	tiAsiento = TipoAsiento.GOLD;
+            }
+            
+            for(int j = 0; j < asientos[i].length; j++) {
+            	asientos[i][j] = Asiento.crearAsientoDisponible(tiAsiento);
             }
         }
     }
