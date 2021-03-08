@@ -5,7 +5,7 @@ public enum EstadoAsiento {
     DISPONIBLE,
     RESERVADO,
     OCUPADO;
-	UNICO;
+	
 
     EstadoAsiento() {
     }
