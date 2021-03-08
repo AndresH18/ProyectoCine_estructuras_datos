@@ -7,7 +7,9 @@ import cine.sala.asiento.TipoAsiento;
 import exceptions.InvalidArgumentE;
 
 import java.util.Arrays;
-
+//Hola prueba mundo
 public class Sala {
     //HOLA. Soy andres
 }
+
+
