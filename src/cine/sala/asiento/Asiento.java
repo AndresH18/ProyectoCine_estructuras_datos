@@ -1,7 +1,6 @@
 package cine.sala.asiento;
 
 public class Asiento {
-
 	EstadoAsiento estado;
 	TipoAsiento tipoAsiento;
 
@@ -16,5 +15,4 @@ public class Asiento {
 	public void getTipoAsiento() {
 		return tipoAsiento;
 	}
-
 }
