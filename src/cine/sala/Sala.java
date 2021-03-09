@@ -11,14 +11,14 @@ import java.util.Iterator;
 
 public class Sala {
 	private static int numSalas = 0;
-	private final int idSala;
+	private final int id;
 	private final Asiento[][] asientos;
 
 	private Pelicula pelicula;
 	private TipoSala tipoSala;
 
 	public Sala(Pelicula pelicula, TipoSala tipoSala, int filas, int columnas) {
-		this.idSala = ++numSalas;
+		this.id = ++numSalas;
 		this.pelicula = pelicula;
 		this.tipoSala = tipoSala;
 		this.asientos = new Asiento[filas][columnas];
@@ -175,9 +175,9 @@ public class Sala {
 		this.tipoSala = tipoSala;
 	}
 
-	public int getIdSala() {
-		return idSala;
-	}
+	public int getId() {
+		return id;
+	}	
 	
 	
 
