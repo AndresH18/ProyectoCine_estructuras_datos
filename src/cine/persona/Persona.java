@@ -1,10 +1,12 @@
 package cine.persona;
 
-public class Persona {
+import java.io.Serializable;
+
+public class Persona implements Serializable{
 
     protected String id;
     protected String nombre;
-    protected String dirección;
+    protected String direccion;
     protected int telefono;
     protected Sexo sexo;
 
@@ -13,7 +15,7 @@ public class Persona {
         this.id = id;
         this.sexo = sexo;
         this.nombre = nombre;
-        this.dirección = direccion;
+        this.direccion = direccion;
         this.telefono = telefono;
     }
 
@@ -30,16 +32,16 @@ public class Persona {
         return nombre;
     }
 
-    public String getDirección() {
-        return dirección;
+    public String getDireccion() {
+        return direccion;
     }
 
     public int getTelefono() {
         return telefono;
     }
 
-    public void setDirección(String dirección) {
-        this.dirección = dirección;
+    public void setDireccionn(String direccion) {
+        this.direccion = direccion;
     }
 
     public void setTelefono(int telefono) {

@@ -4,7 +4,4 @@ public enum Sexo {
 
     MASCULINO,
     FEMENINO;
-
-    Sexo() {
-    }
 }

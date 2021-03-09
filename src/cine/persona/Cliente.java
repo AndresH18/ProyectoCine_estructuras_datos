@@ -1,6 +1,7 @@
 package cine.persona;
 
 public class Cliente extends Persona {
+	
     private int puntos;
 
     public Cliente(String id, String nombre, String direccion, int telefono, Sexo sexo) {
