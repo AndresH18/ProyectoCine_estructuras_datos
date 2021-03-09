@@ -10,12 +10,15 @@ import java.util.Arrays;
 import java.util.Iterator;
 
 public class Sala {
-
+	private static int numSalas = 0;
+	private final int idSala;
 	private final Asiento[][] asientos;
+
 	private Pelicula pelicula;
 	private TipoSala tipoSala;
 
 	public Sala(Pelicula pelicula, TipoSala tipoSala, int filas, int columnas) {
+		this.idSala = ++numSalas;
 		this.pelicula = pelicula;
 		this.tipoSala = tipoSala;
 		this.asientos = new Asiento[filas][columnas];
@@ -27,10 +30,10 @@ public class Sala {
 	public boolean asignarAsiento(int fila, int columna) throws InvalidArgumentE {
 		if ((fila >= asientos.length || fila < 0) && (columna >= asientos[0].length || columna < 0)) {
 			throw new InvalidArgumentE("LA POSICION [" + fila + " , " + columna + "] NO ES VALIDA");
-			
+
 		} else if (fila >= asientos.length || fila < 0) {
 			throw new InvalidRowArgumentE(fila);
-			
+
 		} else if (columna >= asientos[0].length || columna < 0) {
 			throw new InvalidColumnArgumentE(columna);
 		}
@@ -46,10 +49,10 @@ public class Sala {
 	public boolean reservarAsiento(int fila, int columna) throws InvalidArgumentE {
 		if ((fila >= asientos.length || fila < 0) && (columna >= asientos[0].length || columna < 0)) {
 			throw new InvalidArgumentE("LA POSICION [" + fila + " , " + columna + "] NO ES VALIDA");
-			
+
 		} else if (fila >= asientos.length || fila < 0) {
 			throw new InvalidRowArgumentE(fila);
-			
+
 		} else if (columna >= asientos[0].length || columna < 0) {
 			throw new InvalidColumnArgumentE(columna);
 		}
@@ -66,10 +69,10 @@ public class Sala {
 	public void liberarAsiento(int fila, int columna) throws InvalidArgumentE {
 		if ((fila >= asientos.length || fila < 0) && (columna >= asientos[0].length || columna < 0)) {
 			throw new InvalidArgumentE("LA POSICION [" + fila + " , " + columna + "] NO ES VALIDA");
-			
+
 		} else if (fila >= asientos.length || fila < 0) {
 			throw new InvalidRowArgumentE(fila);
-			
+
 		} else if (columna >= asientos[0].length || columna < 0) {
 			throw new InvalidColumnArgumentE(columna);
 		}
@@ -134,24 +137,24 @@ public class Sala {
 				try {
 					liberarAsiento(i, j);
 				} catch (InvalidArgumentE invalidArgumentE) {
-					//FIXME: 
+					// FIXME:
 					invalidArgumentE.printStackTrace();
 				}
 			}
 		}
 	}
-	
+
 	public Asiento getAsiento(int fila, int columna) throws InvalidArgumentE {
 		if ((fila >= asientos.length || fila < 0) && (columna >= asientos[0].length || columna < 0)) {
 			throw new InvalidArgumentE("LA POSICION [" + fila + " , " + columna + "] NO ES VALIDA");
-			
+
 		} else if (fila >= asientos.length || fila < 0) {
 			throw new InvalidRowArgumentE(fila);
-			
+
 		} else if (columna >= asientos[0].length || columna < 0) {
 			throw new InvalidColumnArgumentE(columna);
 		}
-		
+
 		return asientos[fila][columna];
 	}
 
@@ -171,5 +174,11 @@ public class Sala {
 	public void setTipoSala(TipoSala tipoSala) {
 		this.tipoSala = tipoSala;
 	}
+
+	public int getIdSala() {
+		return idSala;
+	}
+	
+	
 
 }
