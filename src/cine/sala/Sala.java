@@ -1,15 +1,16 @@
 package cine.sala;
 
+import java.io.Serializable;
+
 import cine.pelicula.Pelicula;
+import cine.persona.Cliente;
 import cine.sala.asiento.Asiento;
 import cine.sala.asiento.EstadoAsiento;
 import cine.sala.asiento.TipoAsiento;
 import exceptions.*;
 
-import java.util.Arrays;
-import java.util.Iterator;
-
-public class Sala {
+public class Sala implements Serializable{
+	
 	private static int numSalas = 0;
 	private final int id;
 	private final Asiento[][] asientos;
@@ -27,7 +28,8 @@ public class Sala {
 
 	}
 
-	public boolean asignarAsiento(int fila, int columna) throws InvalidArgumentE {
+	public boolean asignarAsiento(Cliente cliente, int fila, int columna) throws InvalidArgumentE {
+
 		if ((fila >= asientos.length || fila < 0) && (columna >= asientos[0].length || columna < 0)) {
 			throw new InvalidArgumentE("LA POSICION [" + fila + " , " + columna + "] NO ES VALIDA");
 
@@ -38,15 +40,26 @@ public class Sala {
 			throw new InvalidColumnArgumentE(columna);
 		}
 
-		if (asientos[fila][columna].getEstadoAsiento() == EstadoAsiento.DISPONIBLE) {
+		if ((asientos[fila][columna].getEstadoAsiento() == EstadoAsiento.DISPONIBLE)
+				|| (asientos[fila][columna].getEstadoAsiento() == EstadoAsiento.RESERVADO
+						&& asientos[fila][columna].getCliente() == cliente)) {
 			asientos[fila][columna].setEstadoAsiento(EstadoAsiento.OCUPADO);
+			asientos[fila][columna].setCliente(cliente);
 			return true;
+
+//		} else if (asientos[fila][columna].getEstadoAsiento() == EstadoAsiento.RESERVADO
+//				&& asientos[fila][columna].getCliente() == cliente) {
+//			
+//			asientos[fila][columna].setEstadoAsiento(EstadoAsiento.OCUPADO);
+//			asientos[fila][columna].setCliente(cliente);
+//			return true;
+//		} else {
 		} else {
 			return false;
 		}
 	}
 
-	public boolean reservarAsiento(int fila, int columna) throws InvalidArgumentE {
+	public boolean reservarAsiento(Cliente cliente, int fila, int columna) throws InvalidArgumentE {
 		if ((fila >= asientos.length || fila < 0) && (columna >= asientos[0].length || columna < 0)) {
 			throw new InvalidArgumentE("LA POSICION [" + fila + " , " + columna + "] NO ES VALIDA");
 
@@ -59,7 +72,9 @@ public class Sala {
 
 		if (asientos[fila][columna].getEstadoAsiento() == EstadoAsiento.DISPONIBLE) {
 			asientos[fila][columna].setEstadoAsiento(EstadoAsiento.RESERVADO);
+			asientos[fila][columna].setCliente(cliente);
 			return true;
+			
 		} else {
 			return false;
 		}
@@ -75,9 +90,11 @@ public class Sala {
 
 		} else if (columna >= asientos[0].length || columna < 0) {
 			throw new InvalidColumnArgumentE(columna);
+			
 		}
 
 		asientos[fila][columna].setEstadoAsiento(EstadoAsiento.DISPONIBLE);
+		asientos[fila][columna].setCliente(null);
 
 	}
 
@@ -94,6 +111,7 @@ public class Sala {
 
 		for (int i = 0; i < asientos.length; i++) {
 			TipoAsiento tiAsiento;
+			
 			if (i < general) {
 //                Arrays.fill(asientos[i], Asiento.crearAsientoDisponible(TipoAsiento.GENERAL));
 				tiAsiento = TipoAsiento.GENERAL;
@@ -111,6 +129,7 @@ public class Sala {
 			} else {
 //                Arrays.fill(asientos[i], Asiento.crearAsientoDisponible(TipoAsiento.GOLD));
 				tiAsiento = TipoAsiento.GOLD;
+				
 			}
 
 			for (int j = 0; j < asientos[i].length; j++) {
@@ -131,6 +150,7 @@ public class Sala {
 		return sb.toString();
 	}
 
+	
 	public void limpiarSala() {
 		for (int i = 0; i < asientos.length; i++) {
 			for (int j = 0; j < asientos[i].length; j++) {
@@ -177,8 +197,6 @@ public class Sala {
 
 	public int getId() {
 		return id;
-	}	
-	
-	
+	}
 
 }

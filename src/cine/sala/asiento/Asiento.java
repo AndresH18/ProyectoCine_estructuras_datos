@@ -1,7 +1,12 @@
 package cine.sala.asiento;
 
-public class Asiento {
+import java.io.Serializable;
 
+import cine.persona.Cliente;
+
+public class Asiento implements Serializable{
+	
+	private Cliente cliente;
 	private EstadoAsiento estadoAsiento;
 	private TipoAsiento tipoAsiento;
 	
@@ -25,4 +30,14 @@ public class Asiento {
 	public TipoAsiento getTipoAsiento() {
 		return tipoAsiento;
 	}
+
+	public Cliente getCliente() {
+		return cliente;
+	}
+
+	public void setCliente(Cliente cliente) {
+		this.cliente = cliente;
+	}
+	
+	
 }
