@@ -2,7 +2,7 @@ package cine.sala;
 
 public enum TipoSala {
 
-    NORMAL(0),
+    NORMAL(1),
     D3(0),
     DX4(0),
     BLACK_STAR(0),

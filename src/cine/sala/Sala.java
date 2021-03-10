@@ -1,134 +1,202 @@
 package cine.sala;
 
+import java.io.Serializable;
+
 import cine.pelicula.Pelicula;
+import cine.persona.Cliente;
 import cine.sala.asiento.Asiento;
 import cine.sala.asiento.EstadoAsiento;
 import cine.sala.asiento.TipoAsiento;
-import exceptions.InvalidArgumentE;
+import exceptions.*;
 
-import java.util.Arrays;
+public class Sala implements Serializable{
+	
+	private static int numSalas = 0;
+	private final int id;
+	private final Asiento[][] asientos;
 
-public class Sala {
+	private Pelicula pelicula;
+	private TipoSala tipoSala;
 
-    private final Asiento[][] asientos;
-    private Pelicula pelicula;
-    private TipoSala tipoSala;
+	public Sala(Pelicula pelicula, TipoSala tipoSala, int filas, int columnas) {
+		this.id = ++numSalas;
+		this.pelicula = pelicula;
+		this.tipoSala = tipoSala;
+		this.asientos = new Asiento[filas][columnas];
 
-    public Sala(Pelicula pelicula, TipoSala tipoSala, int filas, int columnas) {
-        this.pelicula = pelicula;
-        this.tipoSala = tipoSala;
-        this.asientos = new Asiento[filas][columnas];
+		fillAsientos();
 
-        fillAsientos();
+	}
 
-    }
+	public boolean asignarAsiento(Cliente cliente, int fila, int columna) throws InvalidArgumentE {
 
-    public boolean asignarAsiento(int fila, int columna) throws InvalidArgumentE {
-        if (fila >= asientos.length || fila < 0) {
-            throw new InvalidArgumentE("LA FILA NO ES VALIDA");
-        } else if (columna >= asientos[0].length || columna < 0) {
-            throw new InvalidArgumentE("LA COLUMNA NO ES VALIDA");
-        }
+		if ((fila >= asientos.length || fila < 0) && (columna >= asientos[0].length || columna < 0)) {
+			throw new InvalidArgumentE("LA POSICION [" + fila + " , " + columna + "] NO ES VALIDA");
 
-        if (asientos[fila][columna].getEstadoAsiento() == EstadoAsiento.DISPONIBLE) {
-            asientos[fila][columna].setEstadoAsiento(EstadoAsiento.OCUPADO);
-            return true;
-        } else {
-            return false;
-        }
-    }
+		} else if (fila >= asientos.length || fila < 0) {
+			throw new InvalidRowArgumentE(fila);
 
-    public boolean reservarAsiento(int fila, int columna) throws InvalidArgumentE {
-        if (fila >= asientos.length || fila < 0) {
-            throw new InvalidArgumentE("LA FILA NO ES VALIDA");
-        } else if (columna >= asientos[0].length || columna < 0) {
-            throw new InvalidArgumentE("LA COLUMNA NO ES VALIDA");
-        }
+		} else if (columna >= asientos[0].length || columna < 0) {
+			throw new InvalidColumnArgumentE(columna);
+		}
 
-        if (asientos[fila][columna].getEstadoAsiento() == EstadoAsiento.DISPONIBLE) {
-            asientos[fila][columna].setEstadoAsiento(EstadoAsiento.RESERVADO);
-            return true;
-        } else {
-            return false;
-        }
+		if ((asientos[fila][columna].getEstadoAsiento() == EstadoAsiento.DISPONIBLE)
+				|| (asientos[fila][columna].getEstadoAsiento() == EstadoAsiento.RESERVADO
+						&& asientos[fila][columna].getCliente() == cliente)) {
+			asientos[fila][columna].setEstadoAsiento(EstadoAsiento.OCUPADO);
+			asientos[fila][columna].setCliente(cliente);
+			return true;
 
-    }
+//		} else if (asientos[fila][columna].getEstadoAsiento() == EstadoAsiento.RESERVADO
+//				&& asientos[fila][columna].getCliente() == cliente) {
+//			
+//			asientos[fila][columna].setEstadoAsiento(EstadoAsiento.OCUPADO);
+//			asientos[fila][columna].setCliente(cliente);
+//			return true;
+//		} else {
+		} else {
+			return false;
+		}
+	}
 
-    public void liberarAsiento(int fila, int columna) throws InvalidArgumentE {
-        if (fila >= asientos.length || fila < 0) {
-            throw new InvalidArgumentE("LA FILA NO ES VALIDA");
-        } else if (columna >= asientos[0].length || columna < 0) {
-            throw new InvalidArgumentE("LA COLUMNA NO ES VALIDA");
-        }
+	public boolean reservarAsiento(Cliente cliente, int fila, int columna) throws InvalidArgumentE {
+		if ((fila >= asientos.length || fila < 0) && (columna >= asientos[0].length || columna < 0)) {
+			throw new InvalidArgumentE("LA POSICION [" + fila + " , " + columna + "] NO ES VALIDA");
 
-        asientos[fila][columna].setEstadoAsiento(EstadoAsiento.DISPONIBLE);
+		} else if (fila >= asientos.length || fila < 0) {
+			throw new InvalidRowArgumentE(fila);
 
-    }
+		} else if (columna >= asientos[0].length || columna < 0) {
+			throw new InvalidColumnArgumentE(columna);
+		}
 
-    private void fillAsientos() {
-        //00% - 40% General
-        //40% - 60% Preferencial
-        //60% - 80% Platinum
-        //80% - 100% Gold
-        final int filas = asientos.length;
-        final int general = (int) Math.round(filas * 0.4);
-        final int preferencial = (int) Math.round(filas * 0.6);
-        final int platinum = (int) Math.round(filas * 0.8);
+		if (asientos[fila][columna].getEstadoAsiento() == EstadoAsiento.DISPONIBLE) {
+			asientos[fila][columna].setEstadoAsiento(EstadoAsiento.RESERVADO);
+			asientos[fila][columna].setCliente(cliente);
+			return true;
+			
+		} else {
+			return false;
+		}
+
+	}
+
+	public void liberarAsiento(int fila, int columna) throws InvalidArgumentE {
+		if ((fila >= asientos.length || fila < 0) && (columna >= asientos[0].length || columna < 0)) {
+			throw new InvalidArgumentE("LA POSICION [" + fila + " , " + columna + "] NO ES VALIDA");
+
+		} else if (fila >= asientos.length || fila < 0) {
+			throw new InvalidRowArgumentE(fila);
+
+		} else if (columna >= asientos[0].length || columna < 0) {
+			throw new InvalidColumnArgumentE(columna);
+			
+		}
+
+		asientos[fila][columna].setEstadoAsiento(EstadoAsiento.DISPONIBLE);
+		asientos[fila][columna].setCliente(null);
+
+	}
+
+	private void fillAsientos() {
+		// 00% - 40% General
+		// 40% - 60% Preferencial
+		// 60% - 80% Platinum
+		// 80% - 100% Gold
+		final int filas = asientos.length;
+		final int general = (int) Math.round(filas * 0.4);
+		final int preferencial = (int) Math.round(filas * 0.6);
+		final int platinum = (int) Math.round(filas * 0.8);
 //        final int gold = (int) Math.round(filas);
 
-        for (int i = 0; i < asientos.length; i++) {
-            if (i < general) {
-                Arrays.fill(asientos[i], Asiento.crearAsientoDisponible(TipoAsiento.GENERAL));
-            } else if (general <= i && i < preferencial) {
-                // i < preferencial
-                Arrays.fill(asientos[i], Asiento.crearAsientoDisponible(TipoAsiento.PREFERENCIAl));
-            } else if (preferencial <= i && i < platinum) {
-                // i < platinum
-                Arrays.fill(asientos[i], Asiento.crearAsientoDisponible(TipoAsiento.PLATINUM));
-            } else {
-                Arrays.fill(asientos[i], Asiento.crearAsientoDisponible(TipoAsiento.GOLD));
-            }
-        }
-    }
+		for (int i = 0; i < asientos.length; i++) {
+			TipoAsiento tiAsiento;
+			
+			if (i < general) {
+//                Arrays.fill(asientos[i], Asiento.crearAsientoDisponible(TipoAsiento.GENERAL));
+				tiAsiento = TipoAsiento.GENERAL;
 
-    public String mostrarSala() {
-        StringBuilder sb = new StringBuilder();
+			} else if (general <= i && i < preferencial) {
+				// i < preferencial
+//                Arrays.fill(asientos[i], Asiento.crearAsientoDisponible(TipoAsiento.PREFERENCIAl));
+				tiAsiento = TipoAsiento.PREFERENCIAl;
 
-        for (Asiento[] asiento : asientos) {
-            for (Asiento value : asiento) {
-                sb.append("[").append(value.getEstadoAsiento()).append("]");
-            }
-            sb.append("\n");
-        }
-        return sb.toString();
-    }
+			} else if (preferencial <= i && i < platinum) {
+				// i < platinum
+//                Arrays.fill(asientos[i], Asiento.crearAsientoDisponible(TipoAsiento.PLATINUM));
+				tiAsiento = TipoAsiento.PLATINUM;
 
-    public void limpiarSala() {
-        for (int i = 0; i < asientos.length; i++) {
-            for (int j = 0; j < asientos[i].length; j++) {
-                try {
-                    liberarAsiento(i, j);
-                } catch (InvalidArgumentE invalidArgumentE) {
-                    invalidArgumentE.printStackTrace();
-                }
-            }
-        }
-    }
+			} else {
+//                Arrays.fill(asientos[i], Asiento.crearAsientoDisponible(TipoAsiento.GOLD));
+				tiAsiento = TipoAsiento.GOLD;
+				
+			}
 
-    public Pelicula getPelicula() {
-        return pelicula;
-    }
+			for (int j = 0; j < asientos[i].length; j++) {
+				asientos[i][j] = Asiento.crearAsientoDisponible(tiAsiento);
+			}
+		}
+	}
 
-    public TipoSala getTipoSala() {
-        return tipoSala;
-    }
+	public String mostrarSala() {
+		StringBuilder sb = new StringBuilder();
 
-    public void setPelicula(Pelicula pelicula) {
-        limpiarSala();
-        this.pelicula = pelicula;
-    }
+		for (Asiento[] asiento : asientos) {
+			for (Asiento value : asiento) {
+				sb.append("[").append(value.getEstadoAsiento()).append("]");
+			}
+			sb.append("\n");
+		}
+		return sb.toString();
+	}
 
-    public void setTipoSala(TipoSala tipoSala) {
-        this.tipoSala = tipoSala;
-    }
+	
+	public void limpiarSala() {
+		for (int i = 0; i < asientos.length; i++) {
+			for (int j = 0; j < asientos[i].length; j++) {
+				try {
+					liberarAsiento(i, j);
+				} catch (InvalidArgumentE invalidArgumentE) {
+					// FIXME:
+					invalidArgumentE.printStackTrace();
+				}
+			}
+		}
+	}
+
+	public Asiento getAsiento(int fila, int columna) throws InvalidArgumentE {
+		if ((fila >= asientos.length || fila < 0) && (columna >= asientos[0].length || columna < 0)) {
+			throw new InvalidArgumentE("LA POSICION [" + fila + " , " + columna + "] NO ES VALIDA");
+
+		} else if (fila >= asientos.length || fila < 0) {
+			throw new InvalidRowArgumentE(fila);
+
+		} else if (columna >= asientos[0].length || columna < 0) {
+			throw new InvalidColumnArgumentE(columna);
+		}
+
+		return asientos[fila][columna];
+	}
+
+	public Pelicula getPelicula() {
+		return pelicula;
+	}
+
+	public TipoSala getTipoSala() {
+		return tipoSala;
+	}
+
+	public void setPelicula(Pelicula pelicula) {
+		limpiarSala();
+		this.pelicula = pelicula;
+	}
+
+	public void setTipoSala(TipoSala tipoSala) {
+		this.tipoSala = tipoSala;
+	}
+
+	public int getId() {
+		return id;
+	}
+
 }
