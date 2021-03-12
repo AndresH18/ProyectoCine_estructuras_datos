@@ -165,6 +165,7 @@ public class Cine implements Serializable {
 			;
 
 		return n < salas.length;
+		
 	}
 
 	public void update() {
