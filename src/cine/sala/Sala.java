@@ -9,8 +9,8 @@ import cine.sala.asiento.EstadoAsiento;
 import cine.sala.asiento.TipoAsiento;
 import exceptions.*;
 
-public class Sala implements Serializable{
-	
+public class Sala implements Serializable {
+
 	private static int numSalas = 0;
 	private final int id;
 	private final Asiento[][] asientos;
@@ -25,6 +25,28 @@ public class Sala implements Serializable{
 		this.asientos = new Asiento[filas][columnas];
 
 		fillAsientos();
+
+	}
+
+	public Sala(TipoSala tipoSala, int filas, int columnas) {
+		this.id = ++numSalas;
+		this.pelicula = null;
+		this.tipoSala = tipoSala;
+		this.asientos = new Asiento[filas][columnas];
+
+		fillAsientos();
+
+	}
+
+	private Sala() {
+		this.id = 0;
+		this.pelicula = null;
+		this.tipoSala = TipoSala.NORMAL;
+		this.asientos = new Asiento[][] {
+				{ new Asiento(EstadoAsiento.OCUPADO, TipoAsiento.PREFERENCIAL),
+						new Asiento(EstadoAsiento.OCUPADO, TipoAsiento.PREFERENCIAL) },
+				{ new Asiento(EstadoAsiento.OCUPADO, TipoAsiento.PREFERENCIAL),
+						new Asiento(EstadoAsiento.OCUPADO, TipoAsiento.PREFERENCIAL) } };
 
 	}
 
@@ -74,7 +96,7 @@ public class Sala implements Serializable{
 			asientos[fila][columna].setEstadoAsiento(EstadoAsiento.RESERVADO);
 			asientos[fila][columna].setCliente(cliente);
 			return true;
-			
+
 		} else {
 			return false;
 		}
@@ -90,7 +112,7 @@ public class Sala implements Serializable{
 
 		} else if (columna >= asientos[0].length || columna < 0) {
 			throw new InvalidColumnArgumentE(columna);
-			
+
 		}
 
 		asientos[fila][columna].setEstadoAsiento(EstadoAsiento.DISPONIBLE);
@@ -111,7 +133,7 @@ public class Sala implements Serializable{
 
 		for (int i = 0; i < asientos.length; i++) {
 			TipoAsiento tiAsiento;
-			
+
 			if (i < general) {
 //                Arrays.fill(asientos[i], Asiento.crearAsientoDisponible(TipoAsiento.GENERAL));
 				tiAsiento = TipoAsiento.GENERAL;
@@ -119,7 +141,7 @@ public class Sala implements Serializable{
 			} else if (general <= i && i < preferencial) {
 				// i < preferencial
 //                Arrays.fill(asientos[i], Asiento.crearAsientoDisponible(TipoAsiento.PREFERENCIAl));
-				tiAsiento = TipoAsiento.PREFERENCIAl;
+				tiAsiento = TipoAsiento.PREFERENCIAL;
 
 			} else if (preferencial <= i && i < platinum) {
 				// i < platinum
@@ -129,7 +151,7 @@ public class Sala implements Serializable{
 			} else {
 //                Arrays.fill(asientos[i], Asiento.crearAsientoDisponible(TipoAsiento.GOLD));
 				tiAsiento = TipoAsiento.GOLD;
-				
+
 			}
 
 			for (int j = 0; j < asientos[i].length; j++) {
@@ -150,7 +172,6 @@ public class Sala implements Serializable{
 		return sb.toString();
 	}
 
-	
 	public void limpiarSala() {
 		for (int i = 0; i < asientos.length; i++) {
 			for (int j = 0; j < asientos[i].length; j++) {
@@ -197,6 +218,10 @@ public class Sala implements Serializable{
 
 	public int getId() {
 		return id;
+	}
+	
+	public static Sala createDefault() {
+		return new Sala();
 	}
 
 }
