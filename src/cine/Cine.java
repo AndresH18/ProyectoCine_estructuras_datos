@@ -56,7 +56,7 @@ public class Cine implements Serializable {
 		this.salas = new Sala[] { Sala.createDefault() };
 		this.clientes = new Cliente[0];
 		this.empleados = new Empleado[0];
-		
+
 		update();
 
 //		System.out.println(ROOT.getAbsolutePath());
@@ -174,6 +174,14 @@ public class Cine implements Serializable {
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
+	}
+
+	public Empleado buscarEmpleado(String id) {
+		int n = -1;
+		while (++n < empleados.length && !empleados[n].getID().equalsIgnoreCase(id))
+			;
+
+		return n < empleados.length ? empleados[n] : null;
 	}
 
 	public Sala[] getSalas() {
