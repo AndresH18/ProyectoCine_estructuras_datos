@@ -163,7 +163,6 @@ public class Cine implements Serializable {
 		int n = -1;
 		while (++n < salas.length && salas[n] != sala)
 			;
-
 		return n < salas.length;
 		
 	}
