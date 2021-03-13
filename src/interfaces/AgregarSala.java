@@ -111,7 +111,7 @@ public class AgregarSala extends JFrame {
 					textField.setText("id no registrado");
 				}
 				
-				sala=new Sala(cine.buscarPelicula(idPelicula),comboBox_TipoSala.getItemAt(0),NumFilas,NumColumnas); //siempre te da el mismo tipo de sala
+				sala=new Sala(cine.buscarPelicula(idPelicula),(TipoSala) comboBox_TipoSala.getSelectedItem(),NumFilas,NumColumnas); //siempre te da el mismo tipo de sala
 				//sala=new Sala(comboBox_TipoSala.getItemAt(0),NumFilas,NumColumnas); // Investigar bien el .getItemAt(0) que entrega un Tiposala pero no se que poner en parametro
 				//textField.setText(NumFilas+" "+NumColumnas+" "+idPelicula+" "+comboBox_TipoSala.getItemAt(0).toString()); //comboBox_TipoSala.getItemAt(0) esta pasando siempre el primer tipo de asieto por su parametro "0"
 			}
