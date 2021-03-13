@@ -191,5 +191,14 @@ public class Cine implements Serializable {
 	public Pelicula[] getPeliculas() {
 		return peliculas;
 	}
+	public Pelicula buscarPelicula(String id) {
+		int i=0;
+		while(i<peliculas.length || peliculas[i].getId().compareToIgnoreCase(id)!=0) i++;
+		if(i<peliculas.length) {
+			return peliculas[i];
+		}
+		return null;
+	}
+	
 
 }
