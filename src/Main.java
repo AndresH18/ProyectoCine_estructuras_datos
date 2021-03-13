@@ -1,5 +1,9 @@
 import java.awt.BorderLayout;
+import java.awt.EventQueue;
 import java.awt.GridLayout;
+import java.awt.event.WindowAdapter;
+import java.awt.event.WindowEvent;
+import java.awt.event.WindowListener;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
@@ -7,52 +11,86 @@ import java.io.ObjectInputStream;
 
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
+import javax.swing.JPanel;
 
 import cine.Cine;
+import interfaces.EliminarEmpleado;
 import interfaces.EstablecerSala;
+import interfaces.EstablecerSala2;
 
 public class Main extends JFrame {
 
 	private static final File ROOT = new File(System.getProperty("user.dir").concat("\\Data"));
 	private static final File CINE_DATA = new File(ROOT, "cine.cn");
+	
 	private final Cine cine;
+	
 	private final EstablecerSala establecerSala;
-	//OTROS PANELES
+	private final EliminarEmpleado eliminarEmpleado;
+	// OTROS PANELES
 
 	public Main() {
-
 		cine = initFile();
 
 		establecerSala = new EstablecerSala(this, cine);
-
+		eliminarEmpleado = new EliminarEmpleado(this, cine);
+		
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+//		addWindowListener(new WindowAdapter() {
+//			@Override
+//			public void windowClosing(WindowEvent e) {
+//				cine.update();
+//			}
+//		});
+		setLocationRelativeTo(null);
 		setResizable(false);
 		setAlwaysOnTop(true);
+		setVisible(true);
+
+		
+		
+
+		
+		setPanel(establecerSala, "Establecer Sala");
+
+		
 //		setLocationRelativeTo(null);
 //		setLayout(new GridLayout());
-		setContentPane(establecerSala);
-		setBounds(100, 100, establecerSala.getWidth(), establecerSala.getHeight());
-		setVisible(true);
+//		setVisible(false);
+//		setContentPane(establecerSala);
+//		setBounds(200, 200, establecerSala.getWidth(), establecerSala.getHeight());
+//		setVisible(true);
 	}
 
 	private Cine initFile() {
 		if (!(ROOT.exists() && ROOT.isDirectory())) {
 			ROOT.mkdirs();
 			return new Cine(CINE_DATA);
-		} else if (CINE_DATA.exists()) {
+		} else if (!CINE_DATA.exists()) {
 			return new Cine(CINE_DATA);
 		} else {
-			//READ
-			try (ObjectInputStream in = new ObjectInputStream(new FileInputStream(CINE_DATA))){
+			// READ
+			try (ObjectInputStream in = new ObjectInputStream(new FileInputStream(CINE_DATA))) {
 				final Object c = in.readObject();
 				return (Cine) c;
-			} catch (IOException | ClassNotFoundException  e) {
+			} catch (IOException | ClassNotFoundException e) {
+				System.err.println("EXCEPTION: " + e.getMessage() + " CAUGHT");
 				e.printStackTrace();
 				System.err.println("CREATING DEFAULT FILE");
-				JOptionPane.showMessageDialog(this,"ARCHIVO NO ENCONTRADO","ERROR",JOptionPane.ERROR_MESSAGE);
+				JOptionPane.showMessageDialog(this,
+						"ARCHIVO NO ENCONTRADO\nCREANDO ARCHIVO AUXILIAR\nCONTACTE A UN ADMINISTRADOR", "ERROR",
+						JOptionPane.ERROR_MESSAGE);
 				return new Cine(CINE_DATA);
 			}
 		}
+	}
+
+	private void setPanel(JPanel panel, String title) {
+//		setVisible(false);
+		setContentPane(panel);
+		setTitle(title);
+		setBounds(200, 200, panel.getWidth(), panel.getHeight());
+		setVisible(true);
 	}
 
 //	/**
@@ -73,11 +111,17 @@ public class Main extends JFrame {
 //	}
 
 	public static void main(String[] args) {
-		Main m = new Main();
-//		File file = new File(ROOT, "ja");
-//		File file2 = new File(file, "\\f1\\f2\\f3\\MMMMMM.cncnc");
-//		System.out.println(file2.getAbsolutePath());
-//		System.out.println(file2.mkdirs());
+		EventQueue.invokeLater(new Runnable() {
+			@Override
+			public void run() {
+				try {
+					Main main = new Main();
+				} catch (Exception e) {
+					e.printStackTrace();
+				}
+
+			}
+		});
 	}
 
 }

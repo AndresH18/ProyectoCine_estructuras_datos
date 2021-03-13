@@ -52,4 +52,8 @@ public class Pelicula implements Serializable{
 	public static Pelicula createDefault() {
 		return new Pelicula();
 	}
+	
+	
+	
+	
 }
