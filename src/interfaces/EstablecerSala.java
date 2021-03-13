@@ -64,7 +64,7 @@ public class EstablecerSala extends JPanel {
 		this.frame = frame;
 		this.cine = cine;
 
-		setBounds(0, 0, 500, 300);
+		setBounds(0, 0, 479, 300);
 		setLayout(null);
 
 //		
@@ -136,11 +136,15 @@ public class EstablecerSala extends JPanel {
 		bGroup.add(cineArte_rdBtn);
 		bGroup.add(blackStar_rdBtn);
 		bGroup.add(starKids_rdBtn);
+		
+		regresar_btn = new JButton("Regresar");
+		regresar_btn.setBounds(234, 211, 90, 21);
+		add(regresar_btn);
 
 		// TODO
 		// FIXME
 		// DESCOMENTAR LA SIGUIENTE LINEA
-		initialize();
+//		initialize();
 
 	}
 
@@ -225,6 +229,7 @@ public class EstablecerSala extends JPanel {
 
 		}
 	};
+	private JButton regresar_btn;
 
 	private void updateSala() {
 		// CHECKING SALA
@@ -292,5 +297,9 @@ public class EstablecerSala extends JPanel {
 					.append(item.getTipoSala().toString()).append("</html>");
 			infoSala_actual_lbl.setText(sb.toString());
 		}
+	}
+	
+	public void setRegresarListener(ActionListener action) {
+		regresar_btn.addActionListener(action);
 	}
 }
