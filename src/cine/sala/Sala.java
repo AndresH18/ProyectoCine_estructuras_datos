@@ -2,6 +2,7 @@ package cine.sala;
 
 import java.io.Serializable;
 
+import cine.pelicula.Genero;
 import cine.pelicula.Pelicula;
 import cine.persona.Cliente;
 import cine.sala.asiento.Asiento;
@@ -28,7 +29,7 @@ public class Sala implements Serializable {
 
 	}
 
-	public Sala(TipoSala tipoSala, int filas, int columnas) {
+	private Sala(TipoSala tipoSala, int filas, int columnas) {
 		this.id = ++numSalas;
 		this.pelicula = null;
 		this.tipoSala = tipoSala;
@@ -38,16 +39,23 @@ public class Sala implements Serializable {
 
 	}
 
-	private Sala() {
+	private Sala(Pelicula p, String s) {
 		this.id = 0;
-		this.pelicula = null;
-		this.tipoSala = TipoSala.NORMAL;
+		this.pelicula = p;
+		this.tipoSala = TipoSala.BLACK_STAR;
 		this.asientos = new Asiento[][] {
 				{ new Asiento(EstadoAsiento.OCUPADO, TipoAsiento.PREFERENCIAL),
 						new Asiento(EstadoAsiento.OCUPADO, TipoAsiento.PREFERENCIAL) },
 				{ new Asiento(EstadoAsiento.OCUPADO, TipoAsiento.PREFERENCIAL),
 						new Asiento(EstadoAsiento.OCUPADO, TipoAsiento.PREFERENCIAL) } };
 
+	}
+
+	private Sala(Pelicula p) {
+		this.id = 1;
+		this.pelicula = p;
+		this.tipoSala = TipoSala.DX4;
+		this.asientos = new Asiento[1][1];
 	}
 
 	public boolean asignarAsiento(Cliente cliente, int fila, int columna) throws InvalidArgumentE {
@@ -219,9 +227,12 @@ public class Sala implements Serializable {
 	public int getId() {
 		return id;
 	}
-	
-	public static Sala createDefault() {
-		return new Sala();
+
+	public static Sala createDefault(Pelicula p) {
+		return new Sala(p,null);
 	}
 
+	public static Sala create2(Pelicula p) {
+		return new Sala(p);
+	}
 }

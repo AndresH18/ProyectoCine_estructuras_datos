@@ -8,13 +8,17 @@ import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.io.Serializable;
+import java.util.Arrays;
 
 import javax.swing.JFrame;
 
+import cine.pelicula.Genero;
 import cine.pelicula.Pelicula;
 import cine.persona.Cliente;
 import cine.persona.Empleado;
+import cine.persona.Sexo;
 import cine.sala.Sala;
+import cine.sala.TipoSala;
 import cine.sala.asiento.Asiento;
 import cine.sala.asiento.EstadoAsiento;
 import exceptions.AsientoE;
@@ -52,12 +56,14 @@ public class Cine implements Serializable {
 	public Cine(File dataFile) {
 		this.DATA = dataFile;
 		this.ganancias = 0;
-		this.peliculas = new Pelicula[] { Pelicula.createDefault() };
-		this.salas = new Sala[] { Sala.createDefault() };
+		this.peliculas = new Pelicula[] { Pelicula.createDefault(),
+				new Pelicula("DefaultID", "DefaultName", "origDef", Genero.ACCION, false) };
+		this.salas = new Sala[] { Sala.createDefault(peliculas[0]), Sala.create2(peliculas[1]) };
 		this.clientes = new Cliente[0];
-		this.empleados = new Empleado[0];
+		this.empleados = new Empleado[] {new Empleado("MiEmpleado", "Andres", "No tiene", 192837465, Sexo.FEMENINO)};
 
 		update();
+		
 
 //		System.out.println(ROOT.getAbsolutePath());
 //		if (!(ROOT.exists() && ROOT.isDirectory())) {
@@ -146,10 +152,11 @@ public class Cine implements Serializable {
 		}
 	}
 
-	public void establecerSala(Sala sala, Pelicula pelicula) throws SalaNotFoundE {
+	public void establecerSala(Sala sala, Pelicula pelicula, TipoSala tipoSala) throws SalaNotFoundE {
 		if (verifySala(sala)) {
 			limpiarSala(sala);
 			sala.setPelicula(pelicula);
+			sala.setTipoSala(tipoSala);
 
 			update();
 
@@ -159,16 +166,16 @@ public class Cine implements Serializable {
 
 	}
 
-	public boolean verifySala(Sala sala) {
+	private boolean verifySala(Sala sala) {
 		int n = -1;
 		while (++n < salas.length && salas[n] != sala)
 			;
 		return n < salas.length;
-		
+
 	}
 
 	public void update() {
-		// TODO: UPDATE FICHERO
+		// UPDATE FICHERO
 		try (ObjectOutputStream out = new ObjectOutputStream(new FileOutputStream(DATA))) {
 			out.writeObject(this);
 		} catch (IOException e) {
@@ -182,6 +189,17 @@ public class Cine implements Serializable {
 			;
 
 		return n < empleados.length ? empleados[n] : null;
+	}
+
+	public void eliminarEmpleado(Empleado e) {
+		int n = -1;
+		while (++n < empleados.length && empleados[n] != e)
+			;
+		if (empleados.length - (n + 1) >= 0) {
+			System.arraycopy(empleados, n + 1, empleados, n, empleados.length - (n + 1));
+			empleados = Arrays.copyOf(empleados, empleados.length-1);
+		}
+		update();
 	}
 
 	public Sala[] getSalas() {
