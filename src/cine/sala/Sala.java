@@ -40,7 +40,7 @@ public class Sala implements Serializable {
 	}
 
 	private Sala(Pelicula p, String s) {
-		this.id = 0;
+		this.id = -1;
 		this.pelicula = p;
 		this.tipoSala = TipoSala.BLACK_STAR;
 		this.asientos = new Asiento[][] {
@@ -52,7 +52,7 @@ public class Sala implements Serializable {
 	}
 
 	private Sala(Pelicula p) {
-		this.id = 1;
+		this.id = -2;
 		this.pelicula = p;
 		this.tipoSala = TipoSala.DX4;
 		this.asientos = new Asiento[1][1];
