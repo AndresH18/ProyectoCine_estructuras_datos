@@ -110,10 +110,12 @@ public class AgregarSala extends JFrame {
 				if(cine.buscarPelicula(idPelicula)==null) {
 					textField.setText("id no registrado");
 				}
+				
 				sala=new Sala(cine.buscarPelicula(idPelicula),comboBox_TipoSala.getItemAt(0),NumFilas,NumColumnas); //siempre te da el mismo tipo de sala
 				//sala=new Sala(comboBox_TipoSala.getItemAt(0),NumFilas,NumColumnas); // Investigar bien el .getItemAt(0) que entrega un Tiposala pero no se que poner en parametro
 				//textField.setText(NumFilas+" "+NumColumnas+" "+idPelicula+" "+comboBox_TipoSala.getItemAt(0).toString()); //comboBox_TipoSala.getItemAt(0) esta pasando siempre el primer tipo de asieto por su parametro "0"
 			}
+			
 		});
 		btnAgregarSala.setBounds(238, 258, 85, 21);
 		contentPane.add(btnAgregarSala);
@@ -123,10 +125,10 @@ public class AgregarSala extends JFrame {
 		contentPane.add(IdPelicula);
 		IdPelicula.setColumns(10);
 		
-		textField = new JTextField();										//Para pruebas
-		textField.setBounds(10, 259, 203, 19);
-		contentPane.add(textField);
-		textField.setColumns(10);
+//		textField = new JTextField();										//Para pruebas
+//		textField.setBounds(10, 259, 203, 19);
+//		contentPane.add(textField);
+//		textField.setColumns(10);
 
 
 	}
