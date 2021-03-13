@@ -50,6 +50,7 @@ public class AgregarSala2 extends JFrame {
 	}
 
 	/**
+	 * 
 	 * Create the frame.
 	 */
 	public AgregarSala2() {
