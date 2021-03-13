@@ -60,10 +60,9 @@ public class Cine implements Serializable {
 				new Pelicula("DefaultID", "DefaultName", "origDef", Genero.ACCION, false) };
 		this.salas = new Sala[] { Sala.createDefault(peliculas[0]), Sala.create2(peliculas[1]) };
 		this.clientes = new Cliente[0];
-		this.empleados = new Empleado[] {new Empleado("MiEmpleado", "Andres", "No tiene", 192837465, Sexo.FEMENINO)};
+		this.empleados = new Empleado[] { new Empleado("MiEmpleado", "Andres", "No tiene", 192837465, Sexo.FEMENINO) };
 
 		update();
-		
 
 //		System.out.println(ROOT.getAbsolutePath());
 //		if (!(ROOT.exists() && ROOT.isDirectory())) {
@@ -101,6 +100,7 @@ public class Cine implements Serializable {
 		try {
 			if (sala.asignarAsiento(cliente, fila, columna)) {
 				ganancias += sala.getAsiento(fila, columna).getTipoAsiento().getPrecio();
+				update();
 			} else {
 				throw new AsientoOcupadoE();
 			}
@@ -124,7 +124,9 @@ public class Cine implements Serializable {
 	public void reservar(Cliente cliente, Sala sala, int fila, int columna) throws AsientoE, SalaNotFoundE {
 		if (verifySala(sala)) {
 			try {
-				if (!sala.reservarAsiento(cliente, fila, columna)) {
+				if (sala.reservarAsiento(cliente, fila, columna)) {
+					update();
+				} else {
 					throw new AsientoOcupadoE();
 				}
 			} catch (InvalidArgumentE e) {
@@ -139,6 +141,7 @@ public class Cine implements Serializable {
 	public void liberarAsiento(Sala sala, int fila, int columna) throws InvalidArgumentE, SalaNotFoundE {
 		if (verifySala(sala)) {
 			sala.liberarAsiento(fila, columna);
+			update();
 		} else {
 			throw new SalaNotFoundE();
 		}
@@ -147,6 +150,7 @@ public class Cine implements Serializable {
 	public void limpiarSala(Sala sala) throws SalaNotFoundE {
 		if (verifySala(sala)) {
 			sala.limpiarSala();
+			update();
 		} else {
 			throw new SalaNotFoundE();
 		}
@@ -191,14 +195,35 @@ public class Cine implements Serializable {
 		return n < empleados.length ? empleados[n] : null;
 	}
 
+	public Pelicula buscarPelicula(String id) {
+		int n = -1;
+		while (++n < peliculas.length && !peliculas[n].getId().equalsIgnoreCase(id))
+			;
+		return n < peliculas.length ? peliculas[n] : null;
+
+	}
+
+	//
+	/**
+	 * ELIMINA AL EMPLEADO, SI EXISTE, DEL ARREGLO DE EMPLEADOS
+	 * 
+	 * @param e EL EMPLEADO
+	 */
 	public void eliminarEmpleado(Empleado e) {
 		int n = -1;
 		while (++n < empleados.length && empleados[n] != e)
 			;
 		if (empleados.length - (n + 1) >= 0) {
 			System.arraycopy(empleados, n + 1, empleados, n, empleados.length - (n + 1));
-			empleados = Arrays.copyOf(empleados, empleados.length-1);
+			empleados = Arrays.copyOf(empleados, empleados.length - 1);
 		}
+		update();
+	}
+
+	public void agregarSala(Sala sala) {
+		salas = Arrays.copyOf(salas, salas.length + 1);
+		salas[salas.length - 1] = sala;
+
 		update();
 	}
 
@@ -209,23 +234,34 @@ public class Cine implements Serializable {
 	public Pelicula[] getPeliculas() {
 		return peliculas;
 	}
-	public Pelicula buscarPelicula(String id) {
-		int i=0;
-		while(i<peliculas.length || peliculas[i].getId().compareToIgnoreCase(id)!=0) i++;
-		if(i<peliculas.length) {
+
+	////////////////////////////////////////////////////////////////////////////////////////////////////////////
+	/**
+	 * @deprecated
+	 * @param id
+	 * @param n
+	 * @return
+	 */
+	public Pelicula buscarPelicula(String id, int n) {
+		eliminarEmpleado(null);
+		int i = 0;
+		while (i < peliculas.length || peliculas[i].getId().compareToIgnoreCase(id) != 0)
+			i++;
+		if (i < peliculas.length) {
 			return peliculas[i];
 		}
 		return null;
 	}
+
 	public Sala buscarSala(int id) {
 
-		int i=0;
-		while(salas[i].getId()!=id || i<salas.length)i++;
-		if(i<salas.length) {
+		int i = 0;
+		while (salas[i].getId() != id || i < salas.length)
+			i++;
+		if (i < salas.length) {
 			return salas[i];
 		}
 		return null;
 	}
-	
 
 }

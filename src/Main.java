@@ -1,6 +1,8 @@
 import java.awt.BorderLayout;
 import java.awt.EventQueue;
 import java.awt.GridLayout;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 import java.awt.event.WindowListener;
@@ -14,6 +16,7 @@ import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 
 import cine.Cine;
+import interfaces.AgregarSala;
 import interfaces.EliminarEmpleado;
 import interfaces.EstablecerSala;
 import interfaces.EstablecerSala2;
@@ -27,13 +30,20 @@ public class Main extends JFrame {
 	
 	private final EstablecerSala establecerSala;
 	private final EliminarEmpleado eliminarEmpleado;
+	private final AgregarSala agregarSala;
 	// OTROS PANELES
 
 	public Main() {
 		cine = initFile();
 
 		establecerSala = new EstablecerSala(this, cine);
+		establecerSala.setRegresarListener(regresar);
+		
 		eliminarEmpleado = new EliminarEmpleado(this, cine);
+		
+		agregarSala = new AgregarSala(this, cine);
+		agregarSala.setRegresarListener(regresar);
+		
 		
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 //		addWindowListener(new WindowAdapter() {
@@ -51,7 +61,7 @@ public class Main extends JFrame {
 		
 
 		
-		setPanel(establecerSala, "Establecer Sala");
+		setPanel(establecerSala, "HOLASS");
 
 		
 //		setLocationRelativeTo(null);
@@ -92,6 +102,18 @@ public class Main extends JFrame {
 		setBounds(200, 200, panel.getWidth(), panel.getHeight());
 		setVisible(true);
 	}
+	
+	private ActionListener regresar = new ActionListener() {
+
+		@Override
+		public void actionPerformed(ActionEvent e) {
+			//FIXME: Descomentar
+//			setPanel(principal, "Menu Principal");
+			System.err.println("ACTION!!!!");
+			
+		}
+		
+	};
 
 //	/**
 //	 * 
