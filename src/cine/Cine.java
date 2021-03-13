@@ -217,6 +217,15 @@ public class Cine implements Serializable {
 		}
 		return null;
 	}
+	public Sala buscarSala(int id) {
+
+		int i=0;
+		while(salas[i].getId()!=id || i<salas.length)i++;
+		if(i<salas.length) {
+			return salas[i];
+		}
+		return null;
+	}
 	
 
 }

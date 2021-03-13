@@ -125,11 +125,29 @@ public class AgregarSala extends JFrame {
 		contentPane.add(IdPelicula);
 		IdPelicula.setColumns(10);
 		
+		JButton btnCambiarSala = new JButton("Modificar Sala"); ///  		Estoy cargando un nuevo panel para modificar una salo existente
+		btnCambiarSala.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				ModificarSala M=new ModificarSala();
+				nuevoPanel(M);
+				
+			}
+		});
+		btnCambiarSala.setBounds(341, 258, 85, 21);
+		contentPane.add(btnCambiarSala);
+		
 //		textField = new JTextField();										//Para pruebas
 //		textField.setBounds(10, 259, 203, 19);
 //		contentPane.add(textField);
 //		textField.setColumns(10);
 
 
+
+	}
+	public void nuevoPanel(JPanel panelActual) {
+		contentPane.removeAll();
+		contentPane.add(panelActual);
+		contentPane.repaint();
+		contentPane.revalidate();
 	}
 }
