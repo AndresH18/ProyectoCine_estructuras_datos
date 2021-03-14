@@ -99,16 +99,19 @@ public class AgregarPeliculaGUI extends JPanel {
 		add(genero_lbl);
 
 		nombreOriginal_txtFld = new JTextField();
+		nombreOriginal_txtFld.setFont(new Font("Tahoma", Font.PLAIN, 18));
 		nombreOriginal_txtFld.setBounds(260, 160, 260, 25);
 //		nombreOriginal_txtFld.setColumns(10);
 		add(nombreOriginal_txtFld);
 
 		nombre_txtFld = new JTextField();
+		nombre_txtFld.setFont(new Font("Tahoma", Font.PLAIN, 18));
 //		nombre_txtFld.setColumns(10);
 		nombre_txtFld.setBounds(260, 220, 260, 25);
 		add(nombre_txtFld);
 
 		id_txtFld = new JTextField();
+		id_txtFld.setFont(new Font("Tahoma", Font.PLAIN, 18));
 		id_txtFld.setBounds(260, 100, 260, 25);
 		add(id_txtFld);
 
@@ -118,9 +121,9 @@ public class AgregarPeliculaGUI extends JPanel {
 		add(genero_cmbx);
 
 		spanish_cBox = new JCheckBox("Doblada");
-		spanish_cBox.setFont(new Font("Tahoma", Font.PLAIN, 22));
+		spanish_cBox.setFont(new Font("Tahoma", Font.BOLD, 22));
 		spanish_cBox.setHorizontalAlignment(SwingConstants.CENTER);
-		spanish_cBox.setBounds(315, 338, 134, 25);
+		spanish_cBox.setBounds(315, 338, 147, 25);
 		add(spanish_cBox);
 
 		agregar_btn = new JButton("Agregar");
@@ -172,6 +175,7 @@ public class AgregarPeliculaGUI extends JPanel {
 			}
 		});
 	}
+
 	private void cleanFields() {
 		id_txtFld.setText("");
 		nombre_txtFld.setText("");

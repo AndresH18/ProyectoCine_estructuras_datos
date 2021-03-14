@@ -10,13 +10,11 @@ public class Persona implements Serializable{
     protected int telefono;
     protected Sexo sexo;
 
-    public Persona(String id, String nombre, String direccion, int telefono, Sexo sexo) {
+    public Persona(String id, String nombre, Sexo sexo) {
         super();
         this.id = id;
         this.sexo = sexo;
         this.nombre = nombre;
-        this.direccion = direccion;
-        this.telefono = telefono;
     }
 
 

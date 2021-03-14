@@ -60,7 +60,7 @@ public class Cine implements Serializable {
 				new Pelicula("DefaultID", "DefaultName", "origDef", Genero.ACCION, false) };
 		this.salas = new Sala[] { Sala.createDefault(peliculas[0]), Sala.create2(peliculas[1]) };
 		this.clientes = new Cliente[0];
-		this.empleados = new Empleado[] { new Empleado("MiEmpleado", "Andres", "No tiene", 192837465, Sexo.FEMENINO) };
+		this.empleados = new Empleado[] { new Empleado("MiEmpleado", "Manuela", Sexo.FEMENINO) };
 
 		update();
 
@@ -187,20 +187,20 @@ public class Cine implements Serializable {
 		}
 	}
 
-	public Empleado buscarEmpleado(String id) {
-		int n = -1;
-		while (++n < empleados.length && !empleados[n].getID().equalsIgnoreCase(id))
-			;
-
-		return n < empleados.length ? empleados[n] : null;
-	}
-
 	public Pelicula buscarPelicula(String id) {
 		int n = -1;
 		while (++n < peliculas.length && !peliculas[n].getId().equalsIgnoreCase(id))
 			;
 		return n < peliculas.length ? peliculas[n] : null;
 
+	}
+
+	public Empleado buscarEmpleado(String id) {
+		int n = -1;
+		while (++n < empleados.length && !empleados[n].getID().equalsIgnoreCase(id))
+			;
+
+		return n < empleados.length ? empleados[n] : null;
 	}
 
 	//
@@ -226,10 +226,19 @@ public class Cine implements Serializable {
 
 		update();
 	}
+
 	public void agregarPelicula(Pelicula pelicula) {
 		peliculas = Arrays.copyOf(peliculas, peliculas.length + 1);
 		peliculas[peliculas.length - 1] = pelicula;
+		
 		update();
+	}
+
+	public void agregarEmpleado(Empleado empleado) {
+		empleados = Arrays.copyOf(empleados, empleados.length + 1);
+		empleados[empleados.length - 1] = empleado;
+		
+		update();		
 	}
 
 	public Sala[] getSalas() {
@@ -257,6 +266,7 @@ public class Cine implements Serializable {
 		}
 		return null;
 	}
+
 	/**
 	 * @deprecated
 	 * @param id

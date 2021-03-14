@@ -37,6 +37,7 @@ public class EliminarEmpleadoGUI extends JPanel {
 	private final JTextPane tp_infoEmpleado;
 	private final JLabel lblEliminarEmpleado;
 	private final JButton btnEliminar;
+	private final JButton regresar_btn;
 
 	private String holder;
 
@@ -148,8 +149,13 @@ public class EliminarEmpleadoGUI extends JPanel {
 		});
 		btnEliminar.setFont(new Font("Tahoma", Font.PLAIN, 14));
 		btnEliminar.setEnabled(false);
-		btnEliminar.setBounds(177, 227, 89, 23);
+		btnEliminar.setBounds(284, 228, 89, 23);
 		add(btnEliminar);
+		
+		regresar_btn = new JButton("Regresar");
+		regresar_btn.setFont(new Font("Tahoma", Font.PLAIN, 14));
+		regresar_btn.setBounds(41, 231, 89, 23);
+		add(regresar_btn);
 	}
 
 	private void changed() {
@@ -157,5 +163,9 @@ public class EliminarEmpleadoGUI extends JPanel {
 //			System.err.println("YYYY");
 			btnEliminar.setEnabled(false);
 		}
+	}
+	
+	public void addRegresarListener(ActionListener regresar) {
+		regresar_btn.addActionListener(regresar);
 	}
 }

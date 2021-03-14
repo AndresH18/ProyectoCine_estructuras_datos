@@ -11,6 +11,7 @@ import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 
 import cine.Cine;
+import interfaces.AgregarEmpleadoGUI;
 import interfaces.AgregarPeliculaGUI;
 import interfaces.AgregarSalaGUI;
 import interfaces.EliminarEmpleadoGUI;
@@ -29,7 +30,7 @@ public class Main extends JFrame {
 	private final AgregarPeliculaGUI agregarPelicula;
 	private final AgregarSalaGUI agregarSala;
 	private final EstablecerSalaGUI establecerSala;
-	// private final EliminarEmpleadoGUI eliminarEmpleado;
+	private final AgregarEmpleadoGUI agregarEmpleado;
 	private final EliminarEmpleadoGUI eliminarEmpleado;
 
 	public Main() {
@@ -47,7 +48,11 @@ public class Main extends JFrame {
 		establecerSala = new EstablecerSalaGUI(this, cine);
 		establecerSala.setRegresarListener(regresar);
 
+		agregarEmpleado = new AgregarEmpleadoGUI(this, cine);
+		agregarEmpleado.addRegresarListener(regresar);
+
 		eliminarEmpleado = new EliminarEmpleadoGUI(this, cine);
+		eliminarEmpleado.addRegresarListener(regresar);
 
 		agregarSala = new AgregarSalaGUI(this, cine);
 		agregarSala.setRegresarListener(regresar);
@@ -60,7 +65,7 @@ public class Main extends JFrame {
 //		});
 		setLocationRelativeTo(null);
 		setResizable(false);
-		setAlwaysOnTop(true);
+//		setAlwaysOnTop(true);
 		setVisible(true);
 
 //		setPanel(menu, "Menu Principal");
@@ -91,26 +96,7 @@ public class Main extends JFrame {
 		}
 	}
 
-	/**
-	 * @deprecated
-	 * @param panel
-	 * @param title
-	 */
-	private void setPanel(JPanel panel, String title) {
-		setVisible(false);
-		setResizable(true);
-		setBounds(200, 100, 100, 100);
-//		setVisible(false);
-		setContentPane(panel);
-		setTitle(title);
-//		if (panel instanceof Menu) {
-		setBounds(200, 100, panel.getWidth(), panel.getHeight());
-//		} else {
-//			setBounds(200, 200, panel.getWidth(), panel.getHeight());
-//		}
-		setVisible(true);
-		setResizable(false);
-	}
+
 
 	/**
 	 * 0 = MENU<br>
@@ -160,7 +146,10 @@ public class Main extends JFrame {
 
 		} else if (n == 5) {
 			// AGREGAR EMPLEADO
-			System.out.println("AGREGAR EMPLEAD");
+			System.out.println("AGREGAR EMPLEADO");
+			setBounds(200,150, agregarEmpleado.WIDTH, agregarEmpleado.HEIGHT);
+			setContentPane(agregarEmpleado);
+			setTitle("Agregar Empleado");
 
 		} else if (n == 6) {
 			// ELIMINAR EMPLEADO
@@ -240,6 +229,27 @@ public class Main extends JFrame {
 			setPanel(6);
 		}
 	};
+	
+	/**
+	 * @deprecated
+	 * @param panel
+	 * @param title
+	 */
+	private void setPanel(JPanel panel, String title) {
+		setVisible(false);
+		setResizable(true);
+		setBounds(200, 100, 100, 100);
+//		setVisible(false);
+		setContentPane(panel);
+		setTitle(title);
+//		if (panel instanceof Menu) {
+		setBounds(200, 100, panel.getWidth(), panel.getHeight());
+//		} else {
+//			setBounds(200, 200, panel.getWidth(), panel.getHeight());
+//		}
+		setVisible(true);
+		setResizable(false);
+	}
 
 	public static void main(String[] args) {
 		EventQueue.invokeLater(new Runnable() {

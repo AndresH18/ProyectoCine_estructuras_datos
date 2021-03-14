@@ -4,13 +4,13 @@ public class Cliente extends Persona {
 	
     private int puntos;
 
-    public Cliente(String id, String nombre, String direccion, int telefono, Sexo sexo) {
-        super(id, nombre, direccion, telefono, sexo);
+    public Cliente(String id, String nombre, Sexo sexo) {
+        super(id, nombre,  sexo);
         this.puntos = 0;
     }
 
-    public Cliente(String id, String nombre, String direccion, int telefono, Sexo sexo, int puntos) {
-        super(id, nombre, direccion, telefono, sexo);
+    public Cliente(String id, String nombre, Sexo sexo, int puntos) {
+        super(id, nombre, sexo);
         this.puntos = puntos;
     }
 
