@@ -31,7 +31,7 @@ public class AgregarPelicula2 extends JFrame {
 	private JTextPane txtpnNombreOriginal_2;
 	private JTextField textField_2;
 	private JTextPane txtpnNombreOriginal_3;
-
+ 
 	/**
 	 * Launch the application.
 	 */
