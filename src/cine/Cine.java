@@ -226,6 +226,11 @@ public class Cine implements Serializable {
 
 		update();
 	}
+	public void agregarPelicula(Pelicula pelicula) {
+		peliculas = Arrays.copyOf(peliculas, peliculas.length + 1);
+		peliculas[peliculas.length - 1] = pelicula;
+		update();
+	}
 
 	public Sala[] getSalas() {
 		return salas;
@@ -252,7 +257,11 @@ public class Cine implements Serializable {
 		}
 		return null;
 	}
-
+	/**
+	 * @deprecated
+	 * @param id
+	 * @return
+	 */
 	public Sala buscarSala(int id) {
 
 		int i = 0;

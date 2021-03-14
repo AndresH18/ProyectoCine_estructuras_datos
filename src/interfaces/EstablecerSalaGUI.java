@@ -33,11 +33,12 @@ import java.awt.event.ActionEvent;
 import javax.swing.SwingConstants;
 import javax.swing.JRadioButton;
 
-public class EstablecerSala extends JPanel {
+public class EstablecerSalaGUI extends JPanel {
 
 	private final Cine cine;
-
 	private JFrame frame;
+	
+	public final int HEIGH, WIDTH;
 
 	private final JLabel salas_title_lbl;
 	private final JComboBox<Sala> salas_cmbx;
@@ -60,13 +61,15 @@ public class EstablecerSala extends JPanel {
 	/**
 	 * Create the panel.
 	 */
-	public EstablecerSala(JFrame frame, Cine cine) {
+	public EstablecerSalaGUI(JFrame frame, Cine cine) {
 		this.frame = frame;
 		this.cine = cine;
 
 		setBounds(0, 0, 479, 300);
 		setLayout(null);
 
+		this.HEIGH = getHeight();
+		this.WIDTH = getWidth();
 //		
 
 		salas_title_lbl = new JLabel("Sala");
@@ -144,7 +147,7 @@ public class EstablecerSala extends JPanel {
 		// TODO
 		// FIXME
 		// DESCOMENTAR LA SIGUIENTE LINEA
-//		initialize();
+		initialize();
 
 	}
 
@@ -167,9 +170,8 @@ public class EstablecerSala extends JPanel {
 		peliculaBoxRenderer.setPreferredSize(new Dimension(50, 20));
 		peliculas_cmbx.setRenderer(peliculaBoxRenderer);
 
-		setActionListeners();
+		addListeners();
 
-//		updateSala();
 	}
 
 	private void setSelectedRadioButton(TipoSala tipoSala) {
@@ -202,13 +204,14 @@ public class EstablecerSala extends JPanel {
 
 	}
 
-	private void setActionListeners() {
+	private void addListeners() {
 
 		actualizar_btn.addActionListener(new ActionListener() {
 
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				updateSala();
+				
 			}
 		});
 		salas_cmbx.addItemListener(salasListener);
@@ -246,7 +249,9 @@ public class EstablecerSala extends JPanel {
 		if (itemSala == itemByIndex) {
 			try {
 				cine.establecerSala(itemSala, (Pelicula) peliculas_cmbx.getSelectedItem(), readButton());
+				
 				displaySala();
+				
 			} catch (SalaNotFoundE e) {
 				e.printStackTrace();
 				JOptionPane.showMessageDialog(frame, "ERROR AL MODIFICAR LA SALA\nINTENELO MAS TARDE", "",
@@ -297,6 +302,20 @@ public class EstablecerSala extends JPanel {
 					.append(item.getTipoSala().toString()).append("</html>");
 			infoSala_actual_lbl.setText(sb.toString());
 		}
+	}
+	
+	public void refresh() {
+		salas_cmbx.removeItemListener(salasListener);
+		salas_cmbx.removeAllItems();
+		for(Sala s : cine.getSalas()) {
+			salas_cmbx.addItem(s);
+		}
+		peliculas_cmbx.removeItemListener(peliculasListener);
+		peliculas_cmbx.removeAllItems();
+		for(Pelicula p : cine.getPeliculas()) {
+			peliculas_cmbx.addItem(p);
+		}
+		addListeners();
 	}
 	
 	public void setRegresarListener(ActionListener action) {

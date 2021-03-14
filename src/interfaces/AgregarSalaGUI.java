@@ -21,11 +21,12 @@ import cine.sala.Sala;
 import cine.sala.TipoSala;
 import exceptions.PeliculaE;
 
-public class AgregarSala extends JPanel {
-
+public class AgregarSalaGUI extends JPanel {
+	
 	private final JFrame frame;
-
 	private final Cine cine;
+	
+	public final int HEIGHT, WIDTH;
 
 	private String holder;
 
@@ -48,7 +49,7 @@ public class AgregarSala extends JPanel {
 	/**
 	 * Create the frame.
 	 */
-	public AgregarSala(JFrame frame, Cine cine) {
+	public AgregarSalaGUI(JFrame frame, Cine cine) {
 
 		this.frame = frame;
 		this.cine = cine;
@@ -56,6 +57,9 @@ public class AgregarSala extends JPanel {
 		setBounds(0, 0, 450, 326);
 		setBorder(new EmptyBorder(5, 5, 5, 5));
 		setLayout(null);
+		
+		HEIGHT = getHeight();
+		WIDTH = getWidth();
 
 		agregaSala_lbl = new JLabel("Agregar Sala");
 		agregaSala_lbl.setFont(new Font("Tahoma", Font.PLAIN, 18));

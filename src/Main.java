@@ -1,11 +1,6 @@
-import java.awt.BorderLayout;
 import java.awt.EventQueue;
-import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.awt.event.WindowAdapter;
-import java.awt.event.WindowEvent;
-import java.awt.event.WindowListener;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
@@ -16,36 +11,47 @@ import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 
 import cine.Cine;
-import interfaces.AgregarSala;
-import interfaces.EliminarEmpleado;
-import interfaces.EstablecerSala;
-import interfaces.EstablecerSala2;
+import interfaces.AgregarPeliculaGUI;
+import interfaces.AgregarSalaGUI;
+import interfaces.EliminarEmpleadoGUI;
+import interfaces.EstablecerSalaGUI;
+import interfaces.MenuGUI;
 
 public class Main extends JFrame {
 
 	private static final File ROOT = new File(System.getProperty("user.dir").concat("\\Data"));
 	private static final File CINE_DATA = new File(ROOT, "cine.cn");
-	
+
 	private final Cine cine;
-	
-	private final EstablecerSala establecerSala;
-	private final EliminarEmpleado eliminarEmpleado;
-	private final AgregarSala agregarSala;
-	// OTROS PANELES
+
+	private final MenuGUI menu;
+	// private final PeliculaGUI peliculas;
+	private final AgregarPeliculaGUI agregarPelicula;
+	private final AgregarSalaGUI agregarSala;
+	private final EstablecerSalaGUI establecerSala;
+	// private final EliminarEmpleadoGUI eliminarEmpleado;
+	private final EliminarEmpleadoGUI eliminarEmpleado;
 
 	public Main() {
+		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+
 		cine = initFile();
 
-		establecerSala = new EstablecerSala(this, cine);
+		menu = new MenuGUI(this, cine);
+		menu.setOptionsListeners(peliculasAction, agregarPeliculasAction, establecerSalaAction, agregarSalaAction,
+				agregarEmpleadoAction, eliminarEmpleadoAction);
+
+		agregarPelicula = new AgregarPeliculaGUI(this, cine);
+		agregarPelicula.setRegresarListener(regresar);
+
+		establecerSala = new EstablecerSalaGUI(this, cine);
 		establecerSala.setRegresarListener(regresar);
-		
-		eliminarEmpleado = new EliminarEmpleado(this, cine);
-		
-		agregarSala = new AgregarSala(this, cine);
+
+		eliminarEmpleado = new EliminarEmpleadoGUI(this, cine);
+
+		agregarSala = new AgregarSalaGUI(this, cine);
 		agregarSala.setRegresarListener(regresar);
-		
-		
-		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+
 //		addWindowListener(new WindowAdapter() {
 //			@Override
 //			public void windowClosing(WindowEvent e) {
@@ -57,19 +63,9 @@ public class Main extends JFrame {
 		setAlwaysOnTop(true);
 		setVisible(true);
 
-		
-		
+//		setPanel(menu, "Menu Principal");
+		setPanel(0);
 
-		
-		setPanel(establecerSala, "HOLASS");
-
-		
-//		setLocationRelativeTo(null);
-//		setLayout(new GridLayout());
-//		setVisible(false);
-//		setContentPane(establecerSala);
-//		setBounds(200, 200, establecerSala.getWidth(), establecerSala.getHeight());
-//		setVisible(true);
 	}
 
 	private Cine initFile() {
@@ -95,42 +91,155 @@ public class Main extends JFrame {
 		}
 	}
 
+	/**
+	 * @deprecated
+	 * @param panel
+	 * @param title
+	 */
 	private void setPanel(JPanel panel, String title) {
+		setVisible(false);
+		setResizable(true);
+		setBounds(200, 100, 100, 100);
 //		setVisible(false);
 		setContentPane(panel);
 		setTitle(title);
-		setBounds(200, 200, panel.getWidth(), panel.getHeight());
+//		if (panel instanceof Menu) {
+		setBounds(200, 100, panel.getWidth(), panel.getHeight());
+//		} else {
+//			setBounds(200, 200, panel.getWidth(), panel.getHeight());
+//		}
 		setVisible(true);
+		setResizable(false);
 	}
-	
+
+	/**
+	 * 0 = MENU<br>
+	 * 1 = PELICULAS<br>
+	 * 2 = AGREGAR_PELICULAS<br>
+	 * 3 = AGREGAR_SALA,<br>
+	 * 4 = ESTABLECER_SALA<br>
+	 * 5 = AGREGAR_EMPLEADO<br>
+	 * 6 = ELIMINAR_EMPLEADO<br>
+	 * 
+	 * @param n
+	 */
+	private void setPanel(int n) {
+//		setVisible(false);
+		setResizable(true);
+		if (n == 0) {
+			// MENU
+			System.out.println("MENU");
+			setBounds(200, 100, menu.WIDTH, menu.HEIGHT);
+			setTitle("Menu Principal");
+			setContentPane(menu);
+
+		} else if (n == 1) {
+			// PELICULAS
+			System.out.println("PELICULAS");
+			
+		} else if (n == 2) {
+			// AGREGAR PELICULA
+			System.out.println("AGREGAR PELICULA");
+			setBounds(200, 150, agregarPelicula.WIDTH, agregarPelicula.HEIGHT);
+			setContentPane(agregarPelicula);
+			setTitle("Agregar Pelicula");
+		} else if (n == 3) {
+			// AGREGAR SALA
+			System.out.println("AGREGAR SALA");
+			setBounds(200, 150, agregarSala.WIDTH, agregarSala.HEIGHT);
+			setContentPane(agregarSala);
+			setTitle("Agregar Sala");
+
+		} else if (n == 4) {
+			// ESTABLECER SALA
+			System.out.println("ESTABLECER SALA");
+			establecerSala.refresh();
+			setBounds(200, 150, establecerSala.WIDTH, establecerSala.HEIGH);
+			setContentPane(establecerSala);
+			setTitle("Establecer Sala");
+
+		} else if (n == 5) {
+			// AGREGAR EMPLEADO
+			System.out.println("AGREGAR EMPLEAD");
+
+		} else if (n == 6) {
+			// ELIMINAR EMPLEADO
+			System.out.println("ELIMINAR EMPLEADO");
+			setBounds(200, 150, eliminarEmpleado.WIDTH, eliminarEmpleado.HEIGHT);
+			setContentPane(eliminarEmpleado);
+			setTitle("Eliminar Empleado");
+
+		}
+		setResizable(false);
+//		setVisible(true);
+	}
+
 	private ActionListener regresar = new ActionListener() {
 
 		@Override
 		public void actionPerformed(ActionEvent e) {
-			//FIXME: Descomentar
-//			setPanel(principal, "Menu Principal");
-			System.err.println("ACTION!!!!");
-			
+			System.err.println("REGRESAR / MENU PRINCIPAL");
+
+//			setPanel(menu, "Menu Principal");
+			setPanel(0);
 		}
-		
+
+	};
+	private ActionListener peliculasAction = new ActionListener() {
+		@Override
+		public void actionPerformed(ActionEvent e) {
+			System.err.println("PELICULAS");
+			// FIXME: DESCOMENTAR
+			// setPanel(peliculas, "Peliculas");
+			setPanel(1);
+		}
+	};
+	private ActionListener agregarPeliculasAction = new ActionListener() {
+		@Override
+		public void actionPerformed(ActionEvent e) {
+			System.err.println("AGREGAR PELICULAS");
+			// FIXME: DESCOMENTAR
+			// setPanel(agregarPelicula, "Agregar Pelicula");
+			setPanel(2);
+		}
+	};
+	private ActionListener agregarSalaAction = new ActionListener() {
+		@Override
+		public void actionPerformed(ActionEvent e) {
+			System.err.println("AGREGAR SALA");
+
+//			setPanel(agregarSala, "Agregar Sala");
+			setPanel(3);
+		}
+	};
+	private ActionListener establecerSalaAction = new ActionListener() {
+		@Override
+		public void actionPerformed(ActionEvent e) {
+			System.err.println("ESTABLECER SALA");
+
+//			setPanel(establecerSala, "Establecer Sala");
+			setPanel(4);
+		}
 	};
 
-//	/**
-//	 * 
-//	 * @param cineData
-//	 * @return -1 if directory not found, 0 if Cine File not found, 1 if Cine File
-//	 *         found
-//	 */
-//	private int initFile() {
-//		if (!(ROOT.exists() && ROOT.isDirectory())) {
-//			ROOT.mkdirs();
-//			return -1;
-//		} else if (CINE_DATA.exists()) {
-//			return 1;
-//		} else {
-//			return 0;
-//		}
-//	}
+	private ActionListener agregarEmpleadoAction = new ActionListener() {
+		@Override
+		public void actionPerformed(ActionEvent e) {
+			System.err.println("AGREAGAR EMPLEADO");
+			// FIXME: DESCOMENTAR
+			// setPanel(agregarEmpleado, "AgregarEmpleado");
+			setPanel(5);
+		}
+	};
+	private ActionListener eliminarEmpleadoAction = new ActionListener() {
+		@Override
+		public void actionPerformed(ActionEvent e) {
+			System.err.println("ELIMINAR EMPLEADO");
+
+//			setPanel(eliminarEmpleado, "Eliminar Empleado");
+			setPanel(6);
+		}
+	};
 
 	public static void main(String[] args) {
 		EventQueue.invokeLater(new Runnable() {

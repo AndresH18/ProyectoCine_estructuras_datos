@@ -24,10 +24,12 @@ import java.awt.event.ActionEvent;
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
 
-public class EliminarEmpleado extends JPanel {
+public class EliminarEmpleadoGUI extends JPanel {
 
 	private final Cine cine;
 	private final JFrame frame;
+	
+	public final int HEIGHT, WIDTH;
 
 	private final JTextField tf_id;
 	private final JLabel lbl_ID;
@@ -39,17 +41,20 @@ public class EliminarEmpleado extends JPanel {
 	private String holder;
 
 	/**
-	 * Create the frame.
-	 * 
+	 * create the panel.
+	 * @param frame
 	 * @param cine
 	 */
-	public EliminarEmpleado(JFrame frame, Cine cine) {
+	public EliminarEmpleadoGUI(JFrame frame, Cine cine) {
 		this.frame = frame;
 		this.cine = cine;
 
 		setBounds(100, 100, 450, 300);
 		setBorder(new EmptyBorder(5, 5, 5, 5));
 		setLayout(null);
+		
+		HEIGHT = getHeight();
+		WIDTH = getWidth();
 
 		lbl_ID = new JLabel("N\u00FAmero de \r\n\r\n\r\nidentificaci\u00F3n");
 		lbl_ID.setFont(new Font("Tahoma", Font.PLAIN, 12));
