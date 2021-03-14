@@ -134,11 +134,7 @@ public class MenuGUI extends JPanel {
 //		contentPane.add(btnAgregarEmpleados);
 		add(btnEliminarEmpleado);
 
-//		JLabel lblNewLabel = new JLabel("");
-//		lblNewLabel.setFont(new Font("Tahoma", Font.BOLD, 13));
-////		lblNewLabel.setIcon(new ImageIcon(Menu.class.getResource("/Cine/Img/cine.jpg")));
-//		lblNewLabel.setBounds(0, 0, getWidth(), getHeight());
-//		contentPane.add(lblNewLabel);
+
 
 	}
 

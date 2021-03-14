@@ -18,7 +18,6 @@ import javax.swing.SwingConstants;
 import cine.Cine;
 import cine.pelicula.Genero;
 import cine.pelicula.Pelicula;
-import exceptions.InvalidArgumentE;
 
 public class AgregarPeliculaGUI extends JPanel {
 
@@ -48,15 +47,7 @@ public class AgregarPeliculaGUI extends JPanel {
 		this.frame = frame;
 		this.cine = cine;
 
-//		Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
-//		setBackground(Color.DARK_GRAY);
-//		setBounds(screenSize.width * 4 / 10, screenSize.height * 3 / 10, 553, 540);
 		setBounds(0, 0, 553, 540);
-
-//		contentPane = new JPanel();
-//		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
-//		setContentPane(contentPane);
-//		contentPane.setLayout(null);
 		setLayout(null);
 
 		HEIGHT = getHeight();
@@ -186,4 +177,5 @@ public class AgregarPeliculaGUI extends JPanel {
 	public void setRegresarListener(ActionListener regresar) {
 		regresar_btn.addActionListener(regresar);
 	}
+	
 }

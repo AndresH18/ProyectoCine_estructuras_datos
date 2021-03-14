@@ -238,4 +238,5 @@ public class AgregarSalaGUI extends JPanel {
 	public void setRegresarListener(ActionListener action) {
 		regresar_btn.addActionListener(action);
 	}
+	
 }

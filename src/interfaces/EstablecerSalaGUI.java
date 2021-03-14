@@ -2,12 +2,20 @@ package interfaces;
 
 import java.awt.Dimension;
 import java.awt.Font;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.awt.event.ItemEvent;
+import java.awt.event.ItemListener;
 
+import javax.swing.ButtonGroup;
+import javax.swing.JButton;
 import javax.swing.JComboBox;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
+import javax.swing.JRadioButton;
+import javax.swing.SwingConstants;
 
 import cine.Cine;
 import cine.pelicula.Pelicula;
@@ -16,22 +24,6 @@ import cine.sala.TipoSala;
 import exceptions.SalaNotFoundE;
 import interfaces.renderers.JComboBoxPeliculaRender;
 import interfaces.renderers.JComboBoxSalaRenderer;
-
-import javax.swing.AbstractButton;
-import javax.swing.ButtonGroup;
-import javax.swing.JButton;
-import java.awt.event.ActionListener;
-import java.awt.event.ItemEvent;
-import java.awt.event.ItemListener;
-import java.io.File;
-import java.io.FileNotFoundException;
-import java.io.FileOutputStream;
-import java.io.IOException;
-import java.io.ObjectOutputStream;
-import java.util.Enumeration;
-import java.awt.event.ActionEvent;
-import javax.swing.SwingConstants;
-import javax.swing.JRadioButton;
 
 public class EstablecerSalaGUI extends JPanel {
 
@@ -321,4 +313,5 @@ public class EstablecerSalaGUI extends JPanel {
 	public void setRegresarListener(ActionListener action) {
 		regresar_btn.addActionListener(action);
 	}
+	
 }
