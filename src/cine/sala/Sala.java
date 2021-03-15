@@ -2,6 +2,7 @@ package cine.sala;
 
 import java.io.Serializable;
 
+import cine.pelicula.Genero;
 import cine.pelicula.Pelicula;
 import cine.persona.Cliente;
 import cine.sala.asiento.Asiento;
@@ -9,8 +10,8 @@ import cine.sala.asiento.EstadoAsiento;
 import cine.sala.asiento.TipoAsiento;
 import exceptions.*;
 
-public class Sala implements Serializable{
-	
+public class Sala implements Serializable {
+
 	private static int numSalas = 0;
 	private final int id;
 	private final Asiento[][] asientos;
@@ -26,6 +27,44 @@ public class Sala implements Serializable{
 
 		fillAsientos();
 
+	}
+
+	private Sala(TipoSala tipoSala, int filas, int columnas) {
+		this.id = ++numSalas;
+		this.pelicula = null;
+		this.tipoSala = tipoSala;
+		this.asientos = new Asiento[filas][columnas];
+
+		fillAsientos();
+
+	}
+
+	private Sala(Pelicula p, String s) {
+		this.id = 100;
+		this.pelicula = p;
+		this.tipoSala = TipoSala.BLACK_STAR;
+		this.asientos = new Asiento[][] {
+				{ new Asiento(EstadoAsiento.OCUPADO, TipoAsiento.PREFERENCIAL),
+						new Asiento(EstadoAsiento.OCUPADO, TipoAsiento.PREFERENCIAL) },
+				{ new Asiento(EstadoAsiento.OCUPADO, TipoAsiento.PREFERENCIAL),
+						new Asiento(EstadoAsiento.OCUPADO, TipoAsiento.PREFERENCIAL) } };
+
+	}
+
+	private Sala(Pelicula p) {
+		this.id = 9000;
+		this.pelicula = p;
+		this.tipoSala = TipoSala.DX4;
+		this.asientos = new Asiento[][] {
+				{ new Asiento(EstadoAsiento.OCUPADO, TipoAsiento.PLATINUM),
+						new Asiento(EstadoAsiento.RESERVADO, TipoAsiento.GOLD),
+						new Asiento(EstadoAsiento.OCUPADO, TipoAsiento.GENERAL) },
+				{ new Asiento(EstadoAsiento.RESERVADO, TipoAsiento.GOLD),
+						new Asiento(EstadoAsiento.RESERVADO, TipoAsiento.GOLD),
+						new Asiento(EstadoAsiento.OCUPADO, TipoAsiento.GENERAL) },
+				{ new Asiento(EstadoAsiento.DISPONIBLE, TipoAsiento.PLATINUM),
+						new Asiento(EstadoAsiento.RESERVADO, TipoAsiento.GOLD),
+						new Asiento(EstadoAsiento.OCUPADO, TipoAsiento.GENERAL) } };
 	}
 
 	public boolean asignarAsiento(Cliente cliente, int fila, int columna) throws InvalidArgumentE {
@@ -74,7 +113,7 @@ public class Sala implements Serializable{
 			asientos[fila][columna].setEstadoAsiento(EstadoAsiento.RESERVADO);
 			asientos[fila][columna].setCliente(cliente);
 			return true;
-			
+
 		} else {
 			return false;
 		}
@@ -90,7 +129,7 @@ public class Sala implements Serializable{
 
 		} else if (columna >= asientos[0].length || columna < 0) {
 			throw new InvalidColumnArgumentE(columna);
-			
+
 		}
 
 		asientos[fila][columna].setEstadoAsiento(EstadoAsiento.DISPONIBLE);
@@ -111,7 +150,7 @@ public class Sala implements Serializable{
 
 		for (int i = 0; i < asientos.length; i++) {
 			TipoAsiento tiAsiento;
-			
+
 			if (i < general) {
 //                Arrays.fill(asientos[i], Asiento.crearAsientoDisponible(TipoAsiento.GENERAL));
 				tiAsiento = TipoAsiento.GENERAL;
@@ -119,7 +158,7 @@ public class Sala implements Serializable{
 			} else if (general <= i && i < preferencial) {
 				// i < preferencial
 //                Arrays.fill(asientos[i], Asiento.crearAsientoDisponible(TipoAsiento.PREFERENCIAl));
-				tiAsiento = TipoAsiento.PREFERENCIAl;
+				tiAsiento = TipoAsiento.PREFERENCIAL;
 
 			} else if (preferencial <= i && i < platinum) {
 				// i < platinum
@@ -129,7 +168,7 @@ public class Sala implements Serializable{
 			} else {
 //                Arrays.fill(asientos[i], Asiento.crearAsientoDisponible(TipoAsiento.GOLD));
 				tiAsiento = TipoAsiento.GOLD;
-				
+
 			}
 
 			for (int j = 0; j < asientos[i].length; j++) {
@@ -150,7 +189,6 @@ public class Sala implements Serializable{
 		return sb.toString();
 	}
 
-	
 	public void limpiarSala() {
 		for (int i = 0; i < asientos.length; i++) {
 			for (int j = 0; j < asientos[i].length; j++) {
@@ -199,4 +237,15 @@ public class Sala implements Serializable{
 		return id;
 	}
 
+	public Asiento[][] getAsientos() {
+		return asientos;
+	}
+
+	public static Sala createDefault(Pelicula p) {
+		return new Sala(p, null);
+	}
+
+	public static Sala create2(Pelicula p) {
+		return new Sala(p);
+	}
 }

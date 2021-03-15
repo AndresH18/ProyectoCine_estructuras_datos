@@ -5,8 +5,8 @@ public class Empleado extends Persona {
     private static int numEmlpeados = 0;
     private int idEmpleado;
 
-    public Empleado(String id, String nombre, String direccion, int telefono, Sexo sexo) {
-        super(id, nombre, direccion, telefono, sexo);
+    public Empleado(String id, String nombre, Sexo sexo) {
+        super(id, nombre, sexo);
         this.idEmpleado = ++numEmlpeados;
     }
 

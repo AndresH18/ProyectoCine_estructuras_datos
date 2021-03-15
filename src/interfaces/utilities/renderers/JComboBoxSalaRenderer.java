@@ -1,4 +1,4 @@
-package interfaces.renderers;
+package interfaces.utilities.renderers;
 
 import java.awt.Component;
 

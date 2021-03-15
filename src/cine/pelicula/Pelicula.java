@@ -1,38 +1,63 @@
 package cine.pelicula;
 
-public class Pelicula {
+import java.io.Serializable;
 
-    private String id;
-    private String nombre;
-    private String nombreOriginal;
-    private Genero genero;
-    private boolean doblaje;
+public class Pelicula implements Serializable {
 
-    public Pelicula(String idPelicula, String nombre, String nombreOriginal, Genero genero, boolean doblaje) {
-        this.id = idPelicula;
-        this.nombre = nombre;
-        this.nombreOriginal = nombreOriginal;
-        this.doblaje = doblaje;
-        this.genero = genero;
-    }
+	private String id;
+	private String nombre;
+	private String nombreOriginal;
+	private Genero genero;
+	private boolean doblaje;
 
-    public String getId() {
-        return id;
-    }
+	public Pelicula(String idPelicula, String nombre, String nombreOriginal, Genero genero, boolean doblaje) {
+		this.id = idPelicula;
+		this.nombre = nombre;
+		this.nombreOriginal = nombreOriginal;
+		this.doblaje = doblaje;
+		this.genero = genero;
+	}
 
-    public String getNombre() {
-        return nombre;
-    }
+	private Pelicula() {
+		this.id = "DEFAULT";
+		this.nombre = "DEFAULT";
+		this.nombreOriginal = "DEFAULT";
+		this.doblaje = false;
+		this.genero = Genero.ACCION;
+	}
 
-    public String getNombreOriginal() {
-        return nombreOriginal;
-    }
+	public String getId() {
+		return id;
+	}
 
-    public boolean isDoblaje() {
-        return doblaje;
-    }
+	public String getNombre() {
+		return nombre;
+	}
 
-    public Genero getGenero() {
-        return genero;
-    }
+	public String getNombreOriginal() {
+		return nombreOriginal;
+	}
+
+	public boolean isDoblaje() {
+		return doblaje;
+	}
+
+	public Genero getGenero() {
+		return genero;
+	}
+
+//	public static Pelicula createDefault() {
+//		return new Pelicula("DEFAULT","DEFAULT","DEFAULT",Genero.ACCION, false);
+//	}
+	public static Pelicula createDefault() {
+		return new Pelicula();
+	}
+
+	@Override
+	public String toString() {
+		return ("[\tID: " + id + "\n" + "\tNombre: " + nombre + "\n" + "\tNombre Original: " + nombreOriginal + "\n"
+				+ "\tGenero: " + genero.toString() + "\n" + "\tdoblaje: " + doblaje + "]").replaceAll("\t", "    ")
+						.replaceAll("\n", "<br>");
+	}
+
 }
