@@ -34,6 +34,7 @@ public class Main extends JFrame {
 	private final AgregarEmpleadoGUI agregarEmpleado;
 	private final EliminarEmpleadoGUI eliminarEmpleado;
 
+	
 	public Main() {
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
