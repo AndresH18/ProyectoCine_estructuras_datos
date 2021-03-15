@@ -6,8 +6,6 @@ public class Persona implements Serializable{
 
     protected String id;
     protected String nombre;
-    protected String direccion;
-    protected int telefono;
     protected Sexo sexo;
 
     public Persona(String id, String nombre, Sexo sexo) {
@@ -17,6 +15,11 @@ public class Persona implements Serializable{
         this.nombre = nombre;
     }
 
+    public Persona(String id) {
+    	this.id = id;
+    	this.nombre = null;
+    	this.sexo = Sexo.INDEFINIDO;
+    }
 
     public String getID() {
         return id;
@@ -28,22 +31,6 @@ public class Persona implements Serializable{
 
     public String getNombre() {
         return nombre;
-    }
-
-    public String getDireccion() {
-        return direccion;
-    }
-
-    public int getTelefono() {
-        return telefono;
-    }
-
-    public void setDireccionn(String direccion) {
-        this.direccion = direccion;
-    }
-
-    public void setTelefono(int telefono) {
-        this.telefono = telefono;
     }
 
 }

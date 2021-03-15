@@ -23,7 +23,7 @@ public class EliminarEmpleadoGUI extends JPanel {
 
 	private final Cine cine;
 	private final JFrame frame;
-	
+
 	public final int HEIGHT, WIDTH;
 
 	private final JTextField tf_id;
@@ -38,6 +38,7 @@ public class EliminarEmpleadoGUI extends JPanel {
 
 	/**
 	 * create the panel.
+	 * 
 	 * @param frame
 	 * @param cine
 	 */
@@ -48,7 +49,7 @@ public class EliminarEmpleadoGUI extends JPanel {
 		setBounds(100, 100, 450, 300);
 		setBorder(new EmptyBorder(5, 5, 5, 5));
 		setLayout(null);
-		
+
 		HEIGHT = getHeight();
 		WIDTH = getWidth();
 
@@ -59,6 +60,41 @@ public class EliminarEmpleadoGUI extends JPanel {
 		add(lbl_ID);
 
 		tf_id = new JTextField();
+		tf_id.setBounds(170, 66, 139, 20);
+		add(tf_id);
+		tf_id.setColumns(10);
+
+		lblEliminarEmpleado = new JLabel("Eliminar Empleado");
+		lblEliminarEmpleado.setVisible(false);
+		lblEliminarEmpleado.setFont(new Font("Tahoma", Font.BOLD, 14));
+		lblEliminarEmpleado.setBounds(161, 11, 129, 33);
+		add(lblEliminarEmpleado);
+
+		btnBuscarEmpleado = new JButton("Buscar");
+		btnBuscarEmpleado.setFont(new Font("Tahoma", Font.PLAIN, 14));
+		btnBuscarEmpleado.setBounds(319, 63, 85, 23);
+		add(btnBuscarEmpleado);
+
+		tp_infoEmpleado = new JTextPane();
+		tp_infoEmpleado.setEditable(false);
+		tp_infoEmpleado.setBounds(41, 115, 344, 92);
+		add(tp_infoEmpleado);
+
+		btnEliminar = new JButton("Eliminar");
+		btnEliminar.setFont(new Font("Tahoma", Font.PLAIN, 14));
+		btnEliminar.setEnabled(false);
+		btnEliminar.setBounds(284, 228, 89, 23);
+		add(btnEliminar);
+
+		regresar_btn = new JButton("Regresar");
+		regresar_btn.setFont(new Font("Tahoma", Font.PLAIN, 14));
+		regresar_btn.setBounds(41, 231, 89, 23);
+		add(regresar_btn);
+
+		startListeners();
+	}
+
+	private void startListeners() {
 		tf_id.getDocument().addDocumentListener(new DocumentListener() {
 
 			@Override
@@ -76,61 +112,14 @@ public class EliminarEmpleadoGUI extends JPanel {
 				changed();
 			}
 		});
-		tf_id.setBounds(170, 66, 139, 20);
-		add(tf_id);
-		tf_id.setColumns(10);
-
-		lblEliminarEmpleado = new JLabel("Eliminar Empleado");
-		lblEliminarEmpleado.setVisible(false);
-		lblEliminarEmpleado.setFont(new Font("Tahoma", Font.BOLD, 14));
-		lblEliminarEmpleado.setBounds(161, 11, 129, 33);
-		add(lblEliminarEmpleado);
-
-		btnBuscarEmpleado = new JButton("Buscar");
-		btnBuscarEmpleado.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				holder = tf_id.getText();
-
-//				Me pone error en esta linea porque al buscar empleado, retorna nulo
-//				existe empleado
-//				cine.buscarEmpleado(tf_id.getText());
-
-//				if (cine.existeEmpleado(tf_id.getText())) {
-				if (cine.buscarEmpleado(tf_id.getText()) != null) {
-					tp_infoEmpleado.setText("Nombre: " + cine.buscarEmpleado(tf_id.getText()).getNombre() + "\n"
-							+ "Numero de identificacion: " + cine.buscarEmpleado(tf_id.getText()).getNombre() + "\n"
-							+ "Telefono: " + cine.buscarEmpleado(tf_id.getText()).getTelefono() + "\n" + "Dirección: "
-							+ cine.buscarEmpleado(tf_id.getText()).getDireccion() + "\n" + "Sexo: "
-							+ cine.buscarEmpleado(tf_id.getText()).getSexo());
-					btnEliminar.setEnabled(true);
-				} else {
-//					Excepcion de persona o empleado encontrado
-//					tp_infoEmpleado.setText("El empleado no fue encontrado");
-					JOptionPane.showMessageDialog(frame, "NO SE ENCONTRO AL EMPLEADO", "ERROR",
-							JOptionPane.ERROR_MESSAGE);
-
-				}
-
-			}
-		});
-
-		btnBuscarEmpleado.setFont(new Font("Tahoma", Font.PLAIN, 14));
-		btnBuscarEmpleado.setBounds(319, 63, 85, 23);
-		add(btnBuscarEmpleado);
-
-		tp_infoEmpleado = new JTextPane();
-		tp_infoEmpleado.setEditable(false);
-		tp_infoEmpleado.setBounds(41, 115, 344, 92);
-		add(tp_infoEmpleado);
-
-		btnEliminar = new JButton("Eliminar");
 		btnEliminar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				final Empleado empleado = cine.buscarEmpleado(tf_id.getText());
-				if ( empleado != null) {
+				if (empleado != null) {
 					// Eliminar comentario cuando se cree el metodo de eliminar empleado
 					cine.eliminarEmpleado(empleado);
-					JOptionPane.showMessageDialog(frame, "El Empleado ha sido eliminado satisfactoriamente", "", JOptionPane.INFORMATION_MESSAGE);
+					JOptionPane.showMessageDialog(frame, "El Empleado ha sido eliminado satisfactoriamente", "",
+							JOptionPane.INFORMATION_MESSAGE);
 
 				} else {
 
@@ -142,15 +131,32 @@ public class EliminarEmpleadoGUI extends JPanel {
 
 			}
 		});
-		btnEliminar.setFont(new Font("Tahoma", Font.PLAIN, 14));
-		btnEliminar.setEnabled(false);
-		btnEliminar.setBounds(284, 228, 89, 23);
-		add(btnEliminar);
-		
-		regresar_btn = new JButton("Regresar");
-		regresar_btn.setFont(new Font("Tahoma", Font.PLAIN, 14));
-		regresar_btn.setBounds(41, 231, 89, 23);
-		add(regresar_btn);
+		btnBuscarEmpleado.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				holder = tf_id.getText();
+
+//				Me pone error en esta linea porque al buscar empleado, retorna nulo
+//				existe empleado
+//				cine.buscarEmpleado(tf_id.getText());
+
+//				if (cine.existeEmpleado(tf_id.getText())) {
+				if (cine.buscarEmpleado(tf_id.getText()) != null) {
+					tp_infoEmpleado.setText("Nombre: " + cine.buscarEmpleado(tf_id.getText()).getNombre() + "\n"
+							+ "Numero de identificacion: " + cine.buscarEmpleado(tf_id.getText()).getID() + "\n"
+//							+ "Telefono: " + cine.buscarEmpleado(tf_id.getText()).getTelefono() + "\n" 
+//							+ "Dirección: " + cine.buscarEmpleado(tf_id.getText()).getDireccion() + "\n" 
+							+ "Sexo: " + cine.buscarEmpleado(tf_id.getText()).getSexo());
+					btnEliminar.setEnabled(true);
+				} else {
+//					Excepcion de persona o empleado encontrado
+//					tp_infoEmpleado.setText("El empleado no fue encontrado");
+					JOptionPane.showMessageDialog(frame, "NO SE ENCONTRO AL EMPLEADO", "ERROR",
+							JOptionPane.ERROR_MESSAGE);
+
+				}
+
+			}
+		});
 	}
 
 	private void changed() {
@@ -159,9 +165,9 @@ public class EliminarEmpleadoGUI extends JPanel {
 			btnEliminar.setEnabled(false);
 		}
 	}
-	
+
 	public void addRegresarListener(ActionListener regresar) {
 		regresar_btn.addActionListener(regresar);
 	}
-	
+
 }

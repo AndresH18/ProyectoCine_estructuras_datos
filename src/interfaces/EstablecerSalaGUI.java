@@ -22,8 +22,8 @@ import cine.pelicula.Pelicula;
 import cine.sala.Sala;
 import cine.sala.TipoSala;
 import exceptions.SalaNotFoundE;
-import interfaces.renderers.JComboBoxPeliculaRender;
-import interfaces.renderers.JComboBoxSalaRenderer;
+import interfaces.utilities.renderers.JComboBoxPeliculaRender;
+import interfaces.utilities.renderers.JComboBoxSalaRenderer;
 
 public class EstablecerSalaGUI extends JPanel {
 
@@ -47,8 +47,8 @@ public class EstablecerSalaGUI extends JPanel {
 	private final JRadioButton starKids_rdBtn;
 	private final JRadioButton blackStar_rdBtn;
 
-	private JComboBoxSalaRenderer salaBoxRenderer = new JComboBoxSalaRenderer();
-	private JComboBoxPeliculaRender peliculaBoxRenderer = new JComboBoxPeliculaRender();
+	private final JComboBoxSalaRenderer salaBoxRenderer = new JComboBoxSalaRenderer();
+	private final JComboBoxPeliculaRender peliculaBoxRenderer = new JComboBoxPeliculaRender();
 
 	/**
 	 * Create the panel.
@@ -162,7 +162,7 @@ public class EstablecerSalaGUI extends JPanel {
 		peliculaBoxRenderer.setPreferredSize(new Dimension(50, 20));
 		peliculas_cmbx.setRenderer(peliculaBoxRenderer);
 
-		addListeners();
+		startListeners();
 
 	}
 
@@ -196,7 +196,7 @@ public class EstablecerSalaGUI extends JPanel {
 
 	}
 
-	private void addListeners() {
+	private void startListeners() {
 
 		actualizar_btn.addActionListener(new ActionListener() {
 
@@ -307,7 +307,7 @@ public class EstablecerSalaGUI extends JPanel {
 		for(Pelicula p : cine.getPeliculas()) {
 			peliculas_cmbx.addItem(p);
 		}
-		addListeners();
+		startListeners();
 	}
 	
 	public void setRegresarListener(ActionListener action) {

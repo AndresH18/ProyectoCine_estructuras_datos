@@ -133,10 +133,10 @@ public class AgregarSalaGUI extends JPanel {
 			comboBox_TipoSala.addItem(t);
 		}
 
-		setActionListeners();
+		startListeners();
 	}
 
-	private void setActionListeners() {
+	private void startListeners() {
 		btnAgregarSala.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 

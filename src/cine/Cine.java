@@ -31,7 +31,6 @@ public class Cine implements Serializable {
 	private Pelicula[] peliculas;
 	private Sala[] salas;
 	private Empleado[] empleados;
-	private Cliente[] clientes;
 	private double ganancias;
 
 //	private static final File ROOT = new File(System.getProperty("user.dir").concat("\\Data"));
@@ -59,7 +58,6 @@ public class Cine implements Serializable {
 		this.peliculas = new Pelicula[] { Pelicula.createDefault(),
 				new Pelicula("DefaultID", "DefaultName", "origDef", Genero.ACCION, false) };
 		this.salas = new Sala[] { Sala.createDefault(peliculas[0]), Sala.create2(peliculas[1]) };
-		this.clientes = new Cliente[0];
 		this.empleados = new Empleado[] { new Empleado("MiEmpleado", "Manuela", Sexo.FEMENINO) };
 
 		update();
@@ -95,17 +93,20 @@ public class Cine implements Serializable {
 //		}
 //	}
 
-	public void comparBoleta(Cliente cliente, Sala sala, int fila, int columna) throws AsientoE {
-
-		try {
-			if (sala.asignarAsiento(cliente, fila, columna)) {
-				ganancias += sala.getAsiento(fila, columna).getTipoAsiento().getPrecio();
-				update();
-			} else {
-				throw new AsientoOcupadoE();
+	public void comparBoleta(Cliente cliente, Sala sala, int fila, int columna) throws AsientoE, SalaNotFoundE {
+		if (verifySala(sala)) {
+			try {
+				if (sala.asignarAsiento(cliente, fila, columna)) {
+					ganancias += sala.getAsiento(fila, columna).getTipoAsiento().getPrecio();
+					update();
+				} else {
+					throw new AsientoOcupadoE();
+				}
+			} catch (InvalidArgumentE e) {
+				e.printStackTrace();
 			}
-		} catch (InvalidArgumentE e) {
-			e.printStackTrace();
+		} else {
+			throw new SalaNotFoundE();
 		}
 
 //		try {
@@ -230,15 +231,15 @@ public class Cine implements Serializable {
 	public void agregarPelicula(Pelicula pelicula) {
 		peliculas = Arrays.copyOf(peliculas, peliculas.length + 1);
 		peliculas[peliculas.length - 1] = pelicula;
-		
+
 		update();
 	}
 
 	public void agregarEmpleado(Empleado empleado) {
 		empleados = Arrays.copyOf(empleados, empleados.length + 1);
 		empleados[empleados.length - 1] = empleado;
-		
-		update();		
+
+		update();
 	}
 
 	public Sala[] getSalas() {

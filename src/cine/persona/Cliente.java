@@ -3,6 +3,10 @@ package cine.persona;
 public class Cliente extends Persona {
 	
     private int puntos;
+    
+    public Cliente(String id) {
+    	super(id);
+    }
 
     public Cliente(String id, String nombre, Sexo sexo) {
         super(id, nombre,  sexo);

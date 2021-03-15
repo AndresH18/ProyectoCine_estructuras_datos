@@ -2,7 +2,7 @@ package cine.pelicula;
 
 import java.io.Serializable;
 
-public class Pelicula implements Serializable{
+public class Pelicula implements Serializable {
 
 	private String id;
 	private String nombre;
@@ -52,8 +52,12 @@ public class Pelicula implements Serializable{
 	public static Pelicula createDefault() {
 		return new Pelicula();
 	}
-	
-	
-	
-	
+
+	@Override
+	public String toString() {
+		return ("[\tID: " + id + "\n" + "\tNombre: " + nombre + "\n" + "\tNombre Original: " + nombreOriginal + "\n"
+				+ "\tGenero: " + genero.toString() + "\n" + "\tdoblaje: " + doblaje + "]").replaceAll("\t", "    ")
+						.replaceAll("\n", "<br>");
+	}
+
 }

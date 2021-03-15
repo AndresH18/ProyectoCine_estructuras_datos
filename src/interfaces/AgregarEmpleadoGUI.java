@@ -112,10 +112,10 @@ public class AgregarEmpleadoGUI extends JPanel {
 		bGroup.add(m_rBtn);
 		bGroup.add(fem_rBtn);
 
-		addListeners();
+		startListeners();
 	}
 
-	private void addListeners() {
+	private void startListeners() {
 		agregar_btn.addActionListener(new ActionListener() {
 
 			@Override

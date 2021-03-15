@@ -17,6 +17,7 @@ import interfaces.AgregarSalaGUI;
 import interfaces.EliminarEmpleadoGUI;
 import interfaces.EstablecerSalaGUI;
 import interfaces.MenuGUI;
+import interfaces.PeliculasGUI;
 
 public class Main extends JFrame {
 
@@ -26,7 +27,7 @@ public class Main extends JFrame {
 	private final Cine cine;
 
 	private final MenuGUI menu;
-	// private final PeliculaGUI peliculas;
+	private final PeliculasGUI peliculas;
 	private final AgregarPeliculaGUI agregarPelicula;
 	private final AgregarSalaGUI agregarSala;
 	private final EstablecerSalaGUI establecerSala;
@@ -41,6 +42,9 @@ public class Main extends JFrame {
 		menu = new MenuGUI(this, cine);
 		menu.setOptionsListeners(peliculasAction, agregarPeliculasAction, establecerSalaAction, agregarSalaAction,
 				agregarEmpleadoAction, eliminarEmpleadoAction);
+
+		peliculas = new PeliculasGUI(this, cine);
+		peliculas.setRegresarListener(regresar);
 
 		agregarPelicula = new AgregarPeliculaGUI(this, cine);
 		agregarPelicula.setRegresarListener(regresar);
@@ -65,11 +69,11 @@ public class Main extends JFrame {
 //		});
 		setLocationRelativeTo(null);
 		setResizable(false);
-//		setAlwaysOnTop(true);
+		setAlwaysOnTop(true);
 		setVisible(true);
 
 //		setPanel(menu, "Menu Principal");
-		setPanel(0);
+		setPanel(1);
 
 	}
 
@@ -96,8 +100,6 @@ public class Main extends JFrame {
 		}
 	}
 
-
-
 	/**
 	 * 0 = MENU<br>
 	 * 1 = PELICULAS<br>
@@ -122,17 +124,21 @@ public class Main extends JFrame {
 		} else if (n == 1) {
 			// PELICULAS
 			System.out.println("PELICULAS");
-			
+			peliculas.refresh();
+			setBounds(250, 100, peliculas.WIDTH, peliculas.HEIGHT);
+			setContentPane(peliculas);
+			setTitle("Peliculas");
+
 		} else if (n == 2) {
 			// AGREGAR PELICULA
 			System.out.println("AGREGAR PELICULA");
-			setBounds(200, 150, agregarPelicula.WIDTH, agregarPelicula.HEIGHT);
+			setBounds(250, 100, agregarPelicula.WIDTH, agregarPelicula.HEIGHT);
 			setContentPane(agregarPelicula);
 			setTitle("Agregar Pelicula");
 		} else if (n == 3) {
 			// AGREGAR SALA
 			System.out.println("AGREGAR SALA");
-			setBounds(200, 150, agregarSala.WIDTH, agregarSala.HEIGHT);
+			setBounds(250, 100, agregarSala.WIDTH, agregarSala.HEIGHT);
 			setContentPane(agregarSala);
 			setTitle("Agregar Sala");
 
@@ -140,14 +146,14 @@ public class Main extends JFrame {
 			// ESTABLECER SALA
 			System.out.println("ESTABLECER SALA");
 			establecerSala.refresh();
-			setBounds(200, 150, establecerSala.WIDTH, establecerSala.HEIGH);
+			setBounds(250, 100, establecerSala.WIDTH, establecerSala.HEIGH);
 			setContentPane(establecerSala);
 			setTitle("Establecer Sala");
 
 		} else if (n == 5) {
 			// AGREGAR EMPLEADO
 			System.out.println("AGREGAR EMPLEADO");
-			setBounds(200,150, agregarEmpleado.WIDTH, agregarEmpleado.HEIGHT);
+			setBounds(250, 100, agregarEmpleado.WIDTH, agregarEmpleado.HEIGHT);
 			setContentPane(agregarEmpleado);
 			setTitle("Agregar Empleado");
 
@@ -167,7 +173,7 @@ public class Main extends JFrame {
 
 		@Override
 		public void actionPerformed(ActionEvent e) {
-			System.err.println("REGRESAR / MENU PRINCIPAL");
+			System.out.println("REGRESAR / MENU PRINCIPAL");
 
 //			setPanel(menu, "Menu Principal");
 			setPanel(0);
@@ -177,7 +183,7 @@ public class Main extends JFrame {
 	private ActionListener peliculasAction = new ActionListener() {
 		@Override
 		public void actionPerformed(ActionEvent e) {
-			System.err.println("PELICULAS");
+			System.out.println("PELICULAS");
 			// FIXME: DESCOMENTAR
 			// setPanel(peliculas, "Peliculas");
 			setPanel(1);
@@ -186,7 +192,7 @@ public class Main extends JFrame {
 	private ActionListener agregarPeliculasAction = new ActionListener() {
 		@Override
 		public void actionPerformed(ActionEvent e) {
-			System.err.println("AGREGAR PELICULAS");
+			System.out.println("AGREGAR PELICULAS");
 			// FIXME: DESCOMENTAR
 			// setPanel(agregarPelicula, "Agregar Pelicula");
 			setPanel(2);
@@ -195,7 +201,7 @@ public class Main extends JFrame {
 	private ActionListener agregarSalaAction = new ActionListener() {
 		@Override
 		public void actionPerformed(ActionEvent e) {
-			System.err.println("AGREGAR SALA");
+			System.out.println("AGREGAR SALA");
 
 //			setPanel(agregarSala, "Agregar Sala");
 			setPanel(3);
@@ -204,7 +210,7 @@ public class Main extends JFrame {
 	private ActionListener establecerSalaAction = new ActionListener() {
 		@Override
 		public void actionPerformed(ActionEvent e) {
-			System.err.println("ESTABLECER SALA");
+			System.out.println("ESTABLECER SALA");
 
 //			setPanel(establecerSala, "Establecer Sala");
 			setPanel(4);
@@ -214,7 +220,7 @@ public class Main extends JFrame {
 	private ActionListener agregarEmpleadoAction = new ActionListener() {
 		@Override
 		public void actionPerformed(ActionEvent e) {
-			System.err.println("AGREAGAR EMPLEADO");
+			System.out.println("AGREAGAR EMPLEADO");
 			// FIXME: DESCOMENTAR
 			// setPanel(agregarEmpleado, "AgregarEmpleado");
 			setPanel(5);
@@ -223,13 +229,13 @@ public class Main extends JFrame {
 	private ActionListener eliminarEmpleadoAction = new ActionListener() {
 		@Override
 		public void actionPerformed(ActionEvent e) {
-			System.err.println("ELIMINAR EMPLEADO");
+			System.out.println("ELIMINAR EMPLEADO");
 
 //			setPanel(eliminarEmpleado, "Eliminar Empleado");
 			setPanel(6);
 		}
 	};
-	
+
 	/**
 	 * @deprecated
 	 * @param panel

@@ -55,7 +55,16 @@ public class Sala implements Serializable {
 		this.id = 9000;
 		this.pelicula = p;
 		this.tipoSala = TipoSala.DX4;
-		this.asientos = new Asiento[1][1];
+		this.asientos = new Asiento[][] {
+				{ new Asiento(EstadoAsiento.OCUPADO, TipoAsiento.PLATINUM),
+						new Asiento(EstadoAsiento.RESERVADO, TipoAsiento.GOLD),
+						new Asiento(EstadoAsiento.OCUPADO, TipoAsiento.GENERAL) },
+				{ new Asiento(EstadoAsiento.RESERVADO, TipoAsiento.GOLD),
+						new Asiento(EstadoAsiento.RESERVADO, TipoAsiento.GOLD),
+						new Asiento(EstadoAsiento.OCUPADO, TipoAsiento.GENERAL) },
+				{ new Asiento(EstadoAsiento.DISPONIBLE, TipoAsiento.PLATINUM),
+						new Asiento(EstadoAsiento.RESERVADO, TipoAsiento.GOLD),
+						new Asiento(EstadoAsiento.OCUPADO, TipoAsiento.GENERAL) } };
 	}
 
 	public boolean asignarAsiento(Cliente cliente, int fila, int columna) throws InvalidArgumentE {
@@ -228,8 +237,12 @@ public class Sala implements Serializable {
 		return id;
 	}
 
+	public Asiento[][] getAsientos() {
+		return asientos;
+	}
+
 	public static Sala createDefault(Pelicula p) {
-		return new Sala(p,null);
+		return new Sala(p, null);
 	}
 
 	public static Sala create2(Pelicula p) {
