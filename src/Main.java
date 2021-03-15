@@ -237,26 +237,6 @@ public class Main extends JFrame {
 		}
 	};
 
-	/**
-	 * @deprecated
-	 * @param panel
-	 * @param title
-	 */
-	private void setPanel(JPanel panel, String title) {
-		setVisible(false);
-		setResizable(true);
-		setBounds(200, 100, 100, 100);
-//		setVisible(false);
-		setContentPane(panel);
-		setTitle(title);
-//		if (panel instanceof Menu) {
-		setBounds(200, 100, panel.getWidth(), panel.getHeight());
-//		} else {
-//			setBounds(200, 200, panel.getWidth(), panel.getHeight());
-//		}
-		setVisible(true);
-		setResizable(false);
-	}
 
 	public static void main(String[] args) {
 		EventQueue.invokeLater(new Runnable() {
