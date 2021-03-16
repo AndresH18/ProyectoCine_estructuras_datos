@@ -76,8 +76,9 @@ public class Main extends JFrame {
 		setResizable(false);
 		setAlwaysOnTop(true);
 		setVisible(true);
-		setContentPane(login);
-		setBounds(200, 200, login.WIDTH, login.HEIGHT);
+//		setContentPane(login);
+//		setBounds(200, 200, login.WIDTH, login.HEIGHT);
+		setPanel(1);
 
 //		setPanel(menu, "Menu Principal");
 //		setPanel(0);
@@ -138,7 +139,7 @@ public class Main extends JFrame {
 		} else if (n == 1) {
 			// PELICULAS
 			System.out.println("PELICULAS");
-			peliculas.refresh();
+//			peliculas.refresh();
 			setBounds(250, 100, peliculas.WIDTH, peliculas.HEIGHT);
 			setContentPane(peliculas);
 			setTitle("Peliculas");

@@ -29,15 +29,15 @@ public class Sala implements Serializable {
 
 	}
 
-	private Sala(TipoSala tipoSala, int filas, int columnas) {
-		this.id = ++numSalas;
-		this.pelicula = null;
-		this.tipoSala = tipoSala;
-		this.asientos = new Asiento[filas][columnas];
-
-		fillAsientos();
-
-	}
+//	private Sala(TipoSala tipoSala, int filas, int columnas) {
+//		this.id = ++numSalas;
+//		this.pelicula = null;
+//		this.tipoSala = tipoSala;
+//		this.asientos = new Asiento[filas][columnas];
+//
+//		fillAsientos();
+//
+//	}
 
 	private Sala(Pelicula p, String s) {
 		this.id = 100;
@@ -179,17 +179,17 @@ public class Sala implements Serializable {
 		}
 	}
 
-//	private String mostrarSala() {
-//		StringBuilder sb = new StringBuilder();
-//
-//		for (Asiento[] asiento : asientos) {
-//			for (Asiento value : asiento) {
-//				sb.append("[").append(value.getEstadoAsiento()).append("]");
-//			}
-//			sb.append("\n");
-//		}
-//		return sb.toString();
-//	}
+	private String mostrarSala() {
+		StringBuilder sb = new StringBuilder();
+
+		for (Asiento[] asiento : asientos) {
+			for (Asiento value : asiento) {
+				sb.append("[").append(value.getEstadoAsiento()).append("]");
+			}
+			sb.append("\n");
+		}
+		return sb.toString();
+	}
 
 	public void limpiarSala() {
 		for (int i = 0; i < asientos.length; i++) {
