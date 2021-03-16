@@ -38,7 +38,6 @@ public class EstablecerSalaGUI extends JPanel {
 	private final JComboBox<Pelicula> peliculas_cmbx;
 	private final JLabel infoSala_actual_lbl;
 	private final JButton actualizar_btn;
-	private final ButtonGroup bGroup;
 	private final JRadioButton normal_rdBtn;
 	private final JRadioButton d3_rdBtn;
 	private final JRadioButton dx4_rdBtn;
@@ -125,8 +124,8 @@ public class EstablecerSalaGUI extends JPanel {
 		blackStar_rdBtn = new JRadioButton("BLACK STAR");
 		blackStar_rdBtn.setBounds(30, 164, 103, 21);
 		add(blackStar_rdBtn);
-
-		bGroup = new ButtonGroup();
+		
+		ButtonGroup bGroup = new ButtonGroup();
 		bGroup.add(normal_rdBtn);
 		bGroup.add(d3_rdBtn);
 		bGroup.add(dx4_rdBtn);
