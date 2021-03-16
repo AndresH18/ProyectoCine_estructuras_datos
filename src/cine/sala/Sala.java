@@ -82,8 +82,10 @@ public class Sala implements Serializable {
 		if ((asientos[fila][columna].getEstadoAsiento() == EstadoAsiento.DISPONIBLE)
 				|| (asientos[fila][columna].getEstadoAsiento() == EstadoAsiento.RESERVADO
 						&& asientos[fila][columna].getCliente() == cliente)) {
+			
 			asientos[fila][columna].setEstadoAsiento(EstadoAsiento.OCUPADO);
 			asientos[fila][columna].setCliente(cliente);
+			
 			return true;
 
 //		} else if (asientos[fila][columna].getEstadoAsiento() == EstadoAsiento.RESERVADO

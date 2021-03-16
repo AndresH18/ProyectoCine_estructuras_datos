@@ -187,13 +187,19 @@ public class Cine implements Serializable {
 			e.printStackTrace();
 		}
 	}
-
+	
 	public Pelicula buscarPelicula(String id) {
 		int n = -1;
 		while (++n < peliculas.length && !peliculas[n].getId().equalsIgnoreCase(id))
 			;
 		return n < peliculas.length ? peliculas[n] : null;
 
+	}
+	public void agregarPelicula(Pelicula pelicula) {
+		peliculas = Arrays.copyOf(peliculas, peliculas.length + 1);
+		peliculas[peliculas.length - 1] = pelicula;
+
+		update();
 	}
 
 	public Empleado buscarEmpleado(String id) {
@@ -204,7 +210,13 @@ public class Cine implements Serializable {
 		return n < empleados.length ? empleados[n] : null;
 	}
 
-	//
+	public void agregarEmpleado(Empleado empleado) {
+		empleados = Arrays.copyOf(empleados, empleados.length + 1);
+		empleados[empleados.length - 1] = empleado;
+
+		update();
+	}
+
 	/**
 	 * ELIMINA AL EMPLEADO, SI EXISTE, DEL ARREGLO DE EMPLEADOS
 	 * 
@@ -217,10 +229,14 @@ public class Cine implements Serializable {
 		if (empleados.length - (n + 1) >= 0) {
 			System.arraycopy(empleados, n + 1, empleados, n, empleados.length - (n + 1));
 			empleados = Arrays.copyOf(empleados, empleados.length - 1);
+			
 		}
 		update();
 	}
-
+	/**
+	 * Este metodo es para agregar salas
+	 * @param sala La sla
+	 */
 	public void agregarSala(Sala sala) {
 		salas = Arrays.copyOf(salas, salas.length + 1);
 		salas[salas.length - 1] = sala;
@@ -228,21 +244,9 @@ public class Cine implements Serializable {
 		update();
 	}
 
-	public void agregarPelicula(Pelicula pelicula) {
-		peliculas = Arrays.copyOf(peliculas, peliculas.length + 1);
-		peliculas[peliculas.length - 1] = pelicula;
-
-		update();
-	}
-
-	public void agregarEmpleado(Empleado empleado) {
-		empleados = Arrays.copyOf(empleados, empleados.length + 1);
-		empleados[empleados.length - 1] = empleado;
-
-		update();
-	}
 
 	public Sala[] getSalas() {
+		agregarSala(null);
 		return salas;
 	}
 
@@ -258,7 +262,6 @@ public class Cine implements Serializable {
 	 * @return
 	 */
 	public Pelicula buscarPelicula(String id, int n) {
-		eliminarEmpleado(null);
 		int i = 0;
 		while (i < peliculas.length || peliculas[i].getId().compareToIgnoreCase(id) != 0)
 			i++;
@@ -283,5 +286,11 @@ public class Cine implements Serializable {
 		}
 		return null;
 	}
+
+	public double getGanancias() {
+		return ganancias;
+	}
+	
+	
 
 }

@@ -2,11 +2,11 @@ package cine.sala.asiento;
 
 public enum TipoAsiento {
 
-    GENERAL(0),
-    PREFERENCIAL(0),
-    PLATINUM(0),
-    GOLD(0),
-    DISCAPACITADOS(0);
+    GENERAL(10_000),
+    PREFERENCIAL(15_000),
+    PLATINUM(20_000),
+    GOLD(30_000),
+    DISCAPACITADOS(7_000);
 
     private final double precio;
 
