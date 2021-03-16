@@ -249,7 +249,9 @@ public class PeliculasGUI extends JPanel implements ActionListener {
 		if (asiento != null) {
 			if (asiento.getEstadoAsiento() == EstadoAsiento.DISPONIBLE) {
 				// comprar
-				if (JOptionPane.showConfirmDialog(frame, "DESEA COMPRAR EL ASIENTO?", "",
+				final double valor = sala.getTipoSala().getPrecio() + asiento.getTipoAsiento().getPrecio();
+				
+				if (JOptionPane.showConfirmDialog(frame, "COSTO DEL ASIENTO: " + valor + "\nDESEA COMPRAR EL ASIENTO?", "",
 						JOptionPane.YES_NO_OPTION) == JOptionPane.YES_OPTION) {
 
 					final Cliente cliente = new Cliente(id_txtF.getText());

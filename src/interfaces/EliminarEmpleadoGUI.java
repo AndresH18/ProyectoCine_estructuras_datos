@@ -120,6 +120,7 @@ public class EliminarEmpleadoGUI extends JPanel {
 					cine.eliminarEmpleado(empleado);
 					JOptionPane.showMessageDialog(frame, "El Empleado ha sido eliminado satisfactoriamente", "",
 							JOptionPane.INFORMATION_MESSAGE);
+					limpiar();
 
 				} else {
 
@@ -164,6 +165,12 @@ public class EliminarEmpleadoGUI extends JPanel {
 //			System.err.println("YYYY");
 			btnEliminar.setEnabled(false);
 		}
+	}
+	
+	private void limpiar() {
+		tp_infoEmpleado.setText("");
+		tf_id.setText("");
+		changed();
 	}
 
 	public void addRegresarListener(ActionListener regresar) {

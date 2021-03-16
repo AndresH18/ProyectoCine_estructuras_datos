@@ -2,13 +2,13 @@ package cine.sala;
 
 public enum TipoSala {
 
-    NORMAL(1),
-    D3(0),
-    DX4(0),
-    BLACK_STAR(0),
-    SUPER_NOVA(0),
-    CINE_ARTE(0),
-    STAR_KIDS(0);
+    NORMAL(0),
+    D3(4_000),
+    DX4(6_000),
+    BLACK_STAR(8_000),
+    SUPER_NOVA(10_000),
+    CINE_ARTE(4_000),
+    STAR_KIDS(50_000);
 
     public final double precio;
 
