@@ -47,7 +47,7 @@ public class AgregarSalaGUI extends JPanel {
 	private JButton regresar_btn;
 
 	/**
-	 * Create the frame.
+	 * Create the panel.
 	 */
 	public AgregarSalaGUI(JFrame frame, Cine cine) {
 

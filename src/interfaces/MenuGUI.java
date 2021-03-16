@@ -18,11 +18,9 @@ public class MenuGUI extends JPanel {
 
 	private final JFrame frame;
 	private final Cine cine;
-	
+
 	public final int HEIGHT, WIDTH;
 
-	private final Dimension screenSize;
-	
 	private final JButton btnPeliculas;
 	private final JButton btnAgregarPelicula;
 	private final JButton btnEstablecerSala;
@@ -38,7 +36,7 @@ public class MenuGUI extends JPanel {
 		this.cine = cine;
 
 //		Toolkit t = Toolkit.getDefaultToolkit();
-		screenSize = Toolkit.getDefaultToolkit().getScreenSize();
+		final Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
 //		setResizable(false);
 //		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 //		setBounds(screenSize.width * 15 / 100, screenSize.height * 15 / 100, 869,
@@ -52,7 +50,7 @@ public class MenuGUI extends JPanel {
 		setLayout(null);
 		setBackground(new Color(100, 100, 100));
 		setOpaque(true);
-		
+
 		HEIGHT = getHeight();
 		WIDTH = getWidth();
 
@@ -63,8 +61,7 @@ public class MenuGUI extends JPanel {
 		btnPeliculas.setHorizontalAlignment(SwingConstants.LEFT);
 		btnPeliculas.setForeground(Color.WHITE);
 		btnPeliculas.setFont(new Font("Tahoma", Font.BOLD, 40));
-		btnPeliculas.setBounds(getWidth() * 4 / 100, getHeight() * 5 / 100, 322,
-				50);
+		btnPeliculas.setBounds(getWidth() * 4 / 100, getHeight() * 5 / 100, 322, 50);
 		btnPeliculas.setOpaque(false);
 		btnPeliculas.setBorder(null);
 		btnPeliculas.setBackground(new Color(0, 0, 0, 0));
@@ -78,8 +75,7 @@ public class MenuGUI extends JPanel {
 		btnAgregarPelicula.setFont(new Font("Tahoma", Font.BOLD, 40));
 		btnAgregarPelicula.setBorder(null);
 		btnAgregarPelicula.setBackground(new Color(0, 0, 0, 0));
-		btnAgregarPelicula.setBounds(43, 86, 430,
-				50);
+		btnAgregarPelicula.setBounds(43, 86, 430, 50);
 //		contentPane.add(btnAgregarPelculas);
 		add(btnAgregarPelicula);
 
@@ -90,8 +86,7 @@ public class MenuGUI extends JPanel {
 		btnEstablecerSala.setFont(new Font("Tahoma", Font.BOLD, 40));
 		btnEstablecerSala.setBorder(null);
 		btnEstablecerSala.setBackground(new Color(0, 0, 0, 0));
-		btnEstablecerSala.setBounds(43, 151, 322,
-				50);
+		btnEstablecerSala.setBounds(43, 151, 322, 50);
 //		contentPane.add(btnEstablecerSala);
 		add(btnEstablecerSala);
 
@@ -105,8 +100,7 @@ public class MenuGUI extends JPanel {
 		btnAgregarSala.setOpaque(false);
 		btnAgregarSala.setBorder(null);
 		btnAgregarSala.setBackground(new Color(0, 0, 0, 0));
-		btnAgregarSala.setBounds(466, 21, 322,
-				50);
+		btnAgregarSala.setBounds(466, 21, 322, 50);
 //		contentPane.add(btnAgregarSala);
 		add(btnAgregarSala);
 
@@ -117,8 +111,7 @@ public class MenuGUI extends JPanel {
 		btnAgregarEmpleado.setFont(new Font("Tahoma", Font.BOLD, 40));
 		btnAgregarEmpleado.setBorder(null);
 		btnAgregarEmpleado.setBackground(new Color(0, 0, 0, 0));
-		btnAgregarEmpleado.setBounds(466, 86, 430,
-				50);
+		btnAgregarEmpleado.setBounds(466, 86, 430, 50);
 //		contentPane.add(btnEliminarEmpleado);
 		add(btnAgregarEmpleado);
 
@@ -129,19 +122,16 @@ public class MenuGUI extends JPanel {
 		btnEliminarEmpleado.setFont(new Font("Tahoma", Font.BOLD, 40));
 		btnEliminarEmpleado.setBorder(null);
 		btnEliminarEmpleado.setBackground(new Color(0, 0, 0, 0));
-		btnEliminarEmpleado.setBounds(466, 151, 430,
-				50);
+		btnEliminarEmpleado.setBounds(466, 151, 430, 50);
 //		contentPane.add(btnAgregarEmpleados);
 		add(btnEliminarEmpleado);
-
-
 
 	}
 
 	public void setOptionsListeners(ActionListener peliculasAction, ActionListener agregarPeliculaAction,
-			ActionListener establecerSalaAction, ActionListener agregarSalaAction,
-			ActionListener agregarEmpleadoAction, ActionListener eliminarEmpleadoAction) {
-		
+			ActionListener establecerSalaAction, ActionListener agregarSalaAction, ActionListener agregarEmpleadoAction,
+			ActionListener eliminarEmpleadoAction) {
+
 		btnPeliculas.addActionListener(peliculasAction);
 		btnAgregarPelicula.addActionListener(agregarPeliculaAction);
 		btnEstablecerSala.addActionListener(establecerSalaAction);

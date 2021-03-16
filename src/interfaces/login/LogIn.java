@@ -40,11 +40,8 @@ public class LogIn extends JPanel implements FilenameFilter {
 	private ActionListener login;
 
 	private JPanel Principal;
-	private final JLabel lblNewLabel = new JLabel("");
 	private JPasswordField password;
 	private JTextField Userid;
-	private JTextPane txtpnIngreseLaContrasea;
-	private JTextPane txtpnIngreseElUsuario;
 	private JButton btnCrearUsuario;
 	private JButton btnIngresar;
 
@@ -93,7 +90,7 @@ public class LogIn extends JPanel implements FilenameFilter {
 		Principal.add(Userid);
 		Userid.setColumns(10);
 
-		txtpnIngreseLaContrasea = new JTextPane();
+		JTextPane txtpnIngreseLaContrasea = new JTextPane();
 		txtpnIngreseLaContrasea.setOpaque(false);
 		txtpnIngreseLaContrasea.setBorder(null);
 		txtpnIngreseLaContrasea.setBackground(new Color(0, 0, 0, 0));
@@ -104,7 +101,7 @@ public class LogIn extends JPanel implements FilenameFilter {
 				getHeight() * 1 / 10);
 		Principal.add(txtpnIngreseLaContrasea);
 
-		txtpnIngreseElUsuario = new JTextPane();
+		JTextPane txtpnIngreseElUsuario = new JTextPane();
 		txtpnIngreseElUsuario.setText("Ingrese el usuario");
 		txtpnIngreseElUsuario.setForeground(Color.WHITE);
 		txtpnIngreseElUsuario.setFont(new Font("Tahoma", Font.PLAIN, 20));
@@ -176,8 +173,6 @@ public class LogIn extends JPanel implements FilenameFilter {
 		btnCrearUsuario.setBounds(getWidth() * 50 / 100, getHeight() * 70 / 100, getWidth() * 40 / 100,
 				getHeight() * 7 / 100);
 		Principal.add(btnCrearUsuario);
-		lblNewLabel.setBounds(0, 0, getWidth(), getHeight());
-		Principal.add(lblNewLabel);
 
 		readUsers();
 	}
