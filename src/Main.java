@@ -18,6 +18,7 @@ import interfaces.EliminarEmpleadoGUI;
 import interfaces.EstablecerSalaGUI;
 import interfaces.MenuGUI;
 import interfaces.PeliculasGUI;
+import interfaces.login.LogIn;
 
 public class Main extends JFrame {
 
@@ -26,6 +27,7 @@ public class Main extends JFrame {
 
 	private final Cine cine;
 
+	private final LogIn login;
 	private final MenuGUI menu;
 	private final PeliculasGUI peliculas;
 	private final AgregarPeliculaGUI agregarPelicula;
@@ -34,11 +36,13 @@ public class Main extends JFrame {
 	private final AgregarEmpleadoGUI agregarEmpleado;
 	private final EliminarEmpleadoGUI eliminarEmpleado;
 
-	
 	public Main() {
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
 		cine = initFile();
+
+		login = new LogIn(this, ROOT);
+		login.addLoginListener(loginListener);
 
 		menu = new MenuGUI(this, cine);
 		menu.setOptionsListeners(peliculasAction, agregarPeliculasAction, establecerSalaAction, agregarSalaAction,
@@ -72,11 +76,20 @@ public class Main extends JFrame {
 		setResizable(false);
 		setAlwaysOnTop(true);
 		setVisible(true);
+		setContentPane(login);
+		setBounds(200, 200, login.WIDTH, login.HEIGHT);
 
 //		setPanel(menu, "Menu Principal");
-		setPanel(0);
+//		setPanel(0);
 
 	}
+
+	private ActionListener loginListener = new ActionListener() {
+		@Override
+		public void actionPerformed(ActionEvent e) {
+			setPanel(0);
+		}
+	};
 
 	private Cine initFile() {
 		if (!(ROOT.exists() && ROOT.isDirectory())) {
@@ -236,7 +249,6 @@ public class Main extends JFrame {
 			setPanel(6);
 		}
 	};
-
 
 	public static void main(String[] args) {
 		EventQueue.invokeLater(new Runnable() {
