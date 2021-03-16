@@ -11,7 +11,7 @@ public class AsientoTableModel extends AbstractTableModel  {
 	private Asiento[][] asientos;
 
 	public AsientoTableModel() {
-
+		
 	}
 
 	public AsientoTableModel(Asiento[][] asientos) {

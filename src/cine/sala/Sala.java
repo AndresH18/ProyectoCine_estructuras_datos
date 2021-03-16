@@ -179,17 +179,17 @@ public class Sala implements Serializable {
 		}
 	}
 
-	public String mostrarSala() {
-		StringBuilder sb = new StringBuilder();
-
-		for (Asiento[] asiento : asientos) {
-			for (Asiento value : asiento) {
-				sb.append("[").append(value.getEstadoAsiento()).append("]");
-			}
-			sb.append("\n");
-		}
-		return sb.toString();
-	}
+//	private String mostrarSala() {
+//		StringBuilder sb = new StringBuilder();
+//
+//		for (Asiento[] asiento : asientos) {
+//			for (Asiento value : asiento) {
+//				sb.append("[").append(value.getEstadoAsiento()).append("]");
+//			}
+//			sb.append("\n");
+//		}
+//		return sb.toString();
+//	}
 
 	public void limpiarSala() {
 		for (int i = 0; i < asientos.length; i++) {
