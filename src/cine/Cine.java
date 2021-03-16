@@ -271,6 +271,7 @@ public class Cine implements Serializable {
 		return null;
 	}
 
+
 	/**
 	 * @deprecated
 	 * @param id
