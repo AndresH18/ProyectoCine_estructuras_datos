@@ -46,6 +46,9 @@ public class EstablecerSalaGUI extends JPanel {
 	private final JRadioButton cineArte_rdBtn;
 	private final JRadioButton starKids_rdBtn;
 	private final JRadioButton blackStar_rdBtn;
+	
+	private JButton regresar_btn;
+
 
 	private final JComboBoxSalaRenderer salaBoxRenderer = new JComboBoxSalaRenderer();
 	private final JComboBoxPeliculaRender peliculaBoxRenderer = new JComboBoxPeliculaRender();
@@ -224,7 +227,6 @@ public class EstablecerSalaGUI extends JPanel {
 
 		}
 	};
-	private JButton regresar_btn;
 
 	private void updateSala() {
 		// CHECKING SALA

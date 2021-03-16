@@ -74,7 +74,7 @@ public class Main extends JFrame {
 		setVisible(true);
 
 //		setPanel(menu, "Menu Principal");
-		setPanel(1);
+		setPanel(0);
 
 	}
 

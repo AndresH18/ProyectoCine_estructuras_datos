@@ -56,8 +56,8 @@ public class Pelicula implements Serializable {
 	@Override
 	public String toString() {
 		return ("[\tID: " + id + "\n" + "\tNombre: " + nombre + "\n" + "\tNombre Original: " + nombreOriginal + "\n"
-				+ "\tGenero: " + genero.toString() + "\n" + "\tdoblaje: " + doblaje + "]").replaceAll("\t", "    ")
-						.replaceAll("\n", "<br>");
+				+ "\tGenero: " + genero.toString() + "\n" + "\tdoblaje: " + (doblaje ? "SI" : "NO") + "]")
+						.replaceAll("\t", "    ").replaceAll("\n", "<br>");
 	}
 
 }

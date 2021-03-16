@@ -108,7 +108,7 @@ public class AgregarPeliculaGUI extends JPanel {
 
 		genero_cmbx = new JComboBox<>();
 		genero_cmbx.setFont(new Font("Tahoma", Font.PLAIN, 18));
-		genero_cmbx.setBounds(315, 280, 134, 25);
+		genero_cmbx.setBounds(300, 280, 166, 25);
 		add(genero_cmbx);
 
 		spanish_cBox = new JCheckBox("Doblada");
