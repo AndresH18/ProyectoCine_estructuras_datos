@@ -76,9 +76,8 @@ public class Main extends JFrame {
 		setResizable(false);
 		setAlwaysOnTop(true);
 		setVisible(true);
-//		setContentPane(login);
-//		setBounds(200, 200, login.WIDTH, login.HEIGHT);
-		setPanel(1);
+		setContentPane(login);
+		setBounds(200, 200, login.WIDTH, login.HEIGHT);
 
 //		setPanel(menu, "Menu Principal");
 //		setPanel(0);
