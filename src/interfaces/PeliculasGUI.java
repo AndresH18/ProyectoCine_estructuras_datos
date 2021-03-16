@@ -258,7 +258,7 @@ public class PeliculasGUI extends JPanel implements ActionListener {
 					final Cliente cliente = new Cliente(id_txtF.getText());
 					try {
 						cine.comparBoleta(cliente, sala, row, col);
-//						refresh();
+						refresh();
 					} catch (AsientoE | SalaNotFoundE e) {
 						e.printStackTrace();
 					}
@@ -275,7 +275,7 @@ public class PeliculasGUI extends JPanel implements ActionListener {
 
 					try {
 						cine.comparBoleta(asiento.getCliente(), sala, row, col);
-//						refresh();
+						refresh();
 					} catch (AsientoE | SalaNotFoundE e) {
 						e.printStackTrace();
 					}
@@ -297,7 +297,7 @@ public class PeliculasGUI extends JPanel implements ActionListener {
 
 					try {
 						cine.reservar(new Cliente(id_txtF.getText()), sala, row, col);
-//						refresh();
+						refresh();
 					} catch (AsientoE | SalaNotFoundE e) {
 						e.printStackTrace();
 					}
@@ -318,7 +318,7 @@ public class PeliculasGUI extends JPanel implements ActionListener {
 
 					try {
 						sala.liberarAsiento(row, col);
-//						refresh();
+						refresh();
 					} catch (InvalidArgumentE e) {
 						e.printStackTrace();
 					}
@@ -329,22 +329,22 @@ public class PeliculasGUI extends JPanel implements ActionListener {
 		}
 	}
 
-//	public void refresh() {
-//		final int index = peliculaSala_cmbx.getSelectedIndex();
-//		peliculaSala_cmbx.removeActionListener(comboBoxListener);
-//		peliculaSala_cmbx.removeAll();
-//		peliculaSala_cmbx.setRenderer(null);
-//		for(Sala s: cine.getSalas()) {
-//			peliculaSala_cmbx.addItem(s);
-//		}
-//		peliculaSala_cmbx.addActionListener(comboBoxListener);
-//		peliculaSala_cmbx.setSelectedIndex(index);
-//		peliculaSala_cmbx.setRenderer(peliculaRenderer);
-//
-//		
-//		id_txtF.setText("");
-//
-//	}
+	public void refresh() {
+		final int index = peliculaSala_cmbx.getSelectedIndex();
+		peliculaSala_cmbx.removeActionListener(comboBoxListener);
+		peliculaSala_cmbx.removeAll();
+		peliculaSala_cmbx.setRenderer(null);
+		for(Sala s: cine.getSalas()) {
+			peliculaSala_cmbx.addItem(s);
+		}
+		peliculaSala_cmbx.addActionListener(comboBoxListener);
+		peliculaSala_cmbx.setSelectedIndex(index);
+		peliculaSala_cmbx.setRenderer(peliculaRenderer);
+
+		
+		id_txtF.setText("");
+
+	}
 
 	public void setRegresarListener(ActionListener regresar) {
 		regresar_btn.addActionListener(regresar);
