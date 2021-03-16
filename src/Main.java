@@ -138,7 +138,7 @@ public class Main extends JFrame {
 		} else if (n == 1) {
 			// PELICULAS
 			System.out.println("PELICULAS");
-			peliculas.refresh();
+//			peliculas.refresh();
 			setBounds(250, 100, peliculas.WIDTH, peliculas.HEIGHT);
 			setContentPane(peliculas);
 			setTitle("Peliculas");
