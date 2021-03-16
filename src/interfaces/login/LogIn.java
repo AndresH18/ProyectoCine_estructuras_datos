@@ -97,6 +97,7 @@ public class LogIn extends JPanel implements FilenameFilter {
 		txtpnIngreseLaContrasea.setForeground(Color.WHITE);
 		txtpnIngreseLaContrasea.setFont(new Font("Tahoma", Font.PLAIN, 20));
 		txtpnIngreseLaContrasea.setText("Ingrese la contrase\u00F1a");
+		txtpnIngreseLaContrasea.setEditable(false);
 		txtpnIngreseLaContrasea.setBounds(getWidth() * 50 / 100, getHeight() * 37 / 100, getWidth() * 40 / 100,
 				getHeight() * 1 / 10);
 		Principal.add(txtpnIngreseLaContrasea);
@@ -107,6 +108,7 @@ public class LogIn extends JPanel implements FilenameFilter {
 		txtpnIngreseElUsuario.setFont(new Font("Tahoma", Font.PLAIN, 20));
 		txtpnIngreseElUsuario.setOpaque(false);
 		txtpnIngreseElUsuario.setBorder(null);
+		txtpnIngreseElUsuario.setEditable(false);
 		txtpnIngreseElUsuario.setBackground(new Color(0, 0, 0, 0));
 		txtpnIngreseElUsuario.setBounds(getWidth() * 50 / 100, getHeight() * 12 / 100, getWidth() * 40 / 100,
 				getHeight() * 1 / 10);

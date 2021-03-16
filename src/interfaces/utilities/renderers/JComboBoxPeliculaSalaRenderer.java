@@ -19,7 +19,7 @@ public class JComboBoxPeliculaSalaRenderer extends JLabel implements ListCellRen
 	@Override
 	public Component getListCellRendererComponent(JList<? extends Sala> list, Sala value, int index, boolean isSelected,
 			boolean cellHasFocus) {
-		
+
 		if (isSelected) {
 			setBackground(list.getSelectionBackground());
 			setForeground(list.getSelectionForeground());
@@ -30,6 +30,7 @@ public class JComboBoxPeliculaSalaRenderer extends JLabel implements ListCellRen
 		StringBuilder sb = new StringBuilder();
 		sb.append(value.getPelicula().getNombre()).append(", ").append(value.getId());
 		setText(sb.toString());
+
 		return this;
 	}
 

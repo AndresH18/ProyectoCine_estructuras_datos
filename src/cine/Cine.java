@@ -246,7 +246,6 @@ public class Cine implements Serializable {
 
 
 	public Sala[] getSalas() {
-		agregarSala(null);
 		return salas;
 	}
 
