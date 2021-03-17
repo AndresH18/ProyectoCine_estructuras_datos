@@ -19,11 +19,11 @@ public class Pelicula implements Serializable {
 	}
 
 	private Pelicula() {
-		this.id = "DEFAULT";
-		this.nombre = "DEFAULT";
-		this.nombreOriginal = "DEFAULT";
+		this.id = "CabZod";
+		this.nombre = "Los Caballeros del Zodiaco";
+		this.nombreOriginal = "Saint Seiya";
 		this.doblaje = false;
-		this.genero = Genero.ACCION;
+		this.genero = Genero.FANTASIA;
 	}
 
 	public String getId() {

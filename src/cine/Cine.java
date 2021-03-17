@@ -56,7 +56,7 @@ public class Cine implements Serializable {
 		this.DATA = dataFile;
 		this.ganancias = 0;
 		this.peliculas = new Pelicula[] { Pelicula.createDefault(),
-				new Pelicula("DefaultID", "DefaultName", "origDef", Genero.ACCION, false) };
+				new Pelicula("HrPt7", "Harry Potter", "HarryPotter", Genero.AVENTURA, false) };
 		this.salas = new Sala[] { Sala.createDefault(peliculas[0]), Sala.create2(peliculas[1]) };
 		this.empleados = new Empleado[] { new Empleado("MiEmpleado", "Manuela", Sexo.FEMENINO) };
 

@@ -8,6 +8,7 @@ public enum Genero {
     COMEDIA,
     DRAMA,
     CIENCA_FICCION,
+    FANTASIA,
     WEST,
     SUSPENSO,
     MUSICAL,
