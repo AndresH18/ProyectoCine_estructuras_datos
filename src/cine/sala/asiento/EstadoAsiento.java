@@ -2,10 +2,18 @@ package cine.sala.asiento;
 
 public enum EstadoAsiento {
 
-    DISPONIBLE,
-    RESERVADO,
-    OCUPADO;
+    DISPONIBLE("D"),
+    RESERVADO("R"),
+    OCUPADO("O");
 	
-    EstadoAsiento() {
+	
+	private final String caracter;
+    EstadoAsiento(String c) {
+    	this.caracter = c;
     }
+	public String getCaracter() {
+		return caracter;
+	}
+    
+    
 }

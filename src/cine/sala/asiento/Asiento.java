@@ -41,7 +41,7 @@ public class Asiento implements Serializable {
 
 	@Override
 	public String toString() {
-		return "[" + estadoAsiento.toString() + "]";
+		return "[" + estadoAsiento.getCaracter()+ "]";
 	}
 
 }
