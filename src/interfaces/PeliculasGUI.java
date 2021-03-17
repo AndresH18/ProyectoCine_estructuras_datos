@@ -59,7 +59,6 @@ public class PeliculasGUI extends JPanel implements ActionListener {
 	private final JButton action_btn;
 	private final JButton regresar_btn;
 
-	private AsientoTableModel asientoModel = new AsientoTableModel();
 
 	private JTable table;
 
@@ -157,8 +156,9 @@ public class PeliculasGUI extends JPanel implements ActionListener {
 		}
 		peliculaSala_cmbx.setRenderer(peliculaRenderer);
 
-		asientoModel.setAsientos(peliculaSala_cmbx.getItemAt(0).getAsientos());
-		table.setModel(asientoModel);
+//		asientoModel.setAsientos(peliculaSala_cmbx.getItemAt(0).getAsientos());
+//		table.setModel(asientoModel);
+		table.setModel(new AsientoTableModel(peliculaSala_cmbx.getItemAt(0).getAsientos()));
 		JTableUtilities.setCellsAlignment(table, SwingConstants.CENTER);
 
 		startListeners();
@@ -195,9 +195,15 @@ public class PeliculasGUI extends JPanel implements ActionListener {
 		public void actionPerformed(ActionEvent e) {
 			final Sala item = (Sala) peliculaSala_cmbx.getSelectedItem();
 
-			asientoModel.setAsientos(item.getAsientos());
-//			table.setModel(new AsientoTableModel(item.getAsientos()));
-			asientoModel.fireTableDataChanged();
+//			asientoModel.setAsientos(item.getAsientos());
+////			table.setModel(new AsientoTableModel(item.getAsientos()));
+//			asientoModel.fireTableDataChanged();
+//			table.setModel(asientoModel);
+			
+			table.setModel(new AsientoTableModel(item.getAsientos()));
+			JTableUtilities.setCellsAlignment(table, SwingConstants.CENTER);
+
+
 
 			StringBuilder sb = new StringBuilder();
 			sb.append("<html>").append("SALA #: ").append(item.getId()).append("<br>").append("TIPO SALA: ")
@@ -332,7 +338,7 @@ public class PeliculasGUI extends JPanel implements ActionListener {
 	public void refresh() {
 		final int index = peliculaSala_cmbx.getSelectedIndex();
 		peliculaSala_cmbx.removeActionListener(comboBoxListener);
-		peliculaSala_cmbx.removeAll();
+		peliculaSala_cmbx.removeAllItems();
 		peliculaSala_cmbx.setRenderer(null);
 		for(Sala s: cine.getSalas()) {
 			peliculaSala_cmbx.addItem(s);
